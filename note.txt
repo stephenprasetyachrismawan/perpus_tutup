@@ -1,0 +1,1 @@
+INSERT INTO `buku`(`judul`, `pengarang`, `tahun`, `id_jenis`) VALUES ('Mencari Kode','Alvin','2007','7'), ('Mencari Kode','Alvin','2007','1'), ('Mencari Kode','Alvin','2007','2'), ('Mencari Kode','Alvin','2007','4'),('Mencari Kode','Alvin','2007','3'), ('Mencari Kode','Alvin','2007','5'), ('Mencari Kode','Alvin','2007','6');
