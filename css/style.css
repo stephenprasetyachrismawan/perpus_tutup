@@ -1,5 +1,5 @@
 .ukur {
-  height: 100vh;
-  object-fit: cover;
-  object-position: center;
+  height: 100vh!important;
+  object-fit: cover!important;
+  object-position: center!important;
 }

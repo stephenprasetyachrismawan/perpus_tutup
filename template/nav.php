@@ -19,7 +19,7 @@
                             </a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="masuk.php?sebagai=admin">Sebagai Admin</a>
-                                <a class="dropdown-item" href="masuk.php?sebagai=anggota">Sebagai Anggota</a>
+                                <a class="dropdown-item" href="masuk.php?sebagai=mahasiswa">Sebagai Mahasiswa</a>
 
                                 <a class="dropdown-item" href="masuk.php?sebagai=tamu">Sebagai Tamu</a>
                             </div>';
@@ -44,7 +44,7 @@
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">Registrasi
                             </a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="regis.php?sebagai=anggota">Sebagai Anggota</a>
+                                <a class="dropdown-item" href="regis.php?sebagai=mahasiswa">Sebagai Mahasiswa</a>
                                 
                                 <a class="dropdown-item" href="regis.php?sebagai=tamu">Sebagai Tamu</a>
                             </div></li>';

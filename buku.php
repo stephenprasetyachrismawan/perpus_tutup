@@ -1,27 +1,33 @@
 <?php
 $title = "Daftar Buku";
 $css = "style.css";
+session_start();
+include "template/head.php";
+include "template/nav.php";
 include "koneksi.php";
-include("template/head.php");
-// include "template/nav.php";
+
 
 if (isset($_GET['id'])) {
     $id=htmlspecialchars($_GET["id"]);
-
     $sql="delete from buku where id='$id' ";
     $hasil=mysqli_query($koneksi,$sql);
     if ($hasil) {
-        header("location: buku.php");
+        echo "<script>swal('Data Berhasil Dihapus', '', 'success').then(function(){
+                window.location.assign('buku.php');
+            });</script>";
     }
     else {
-        echo "<div class='alert alert-danger'> Data Gagal dihapus!</div>";
+        echo "<script>swal('Data Gagal Dihapus', '', 'error').then(function(){
+                window.location.assign('buku.php');
+            });</script>";    
     }
 }
 ?>
 
 <div class="container">
-    <div class="card mt-5">
+    <div class="card" style="margin-top: 100px;">
         <div class="card-body">
+            <h4 class="text-center">Daftar Buku</h4>
             <table id="table" class="table table-striped table-bordered">
                 <thead>
                     <tr>
@@ -30,7 +36,7 @@ if (isset($_GET['id'])) {
                         <th>Pengarang</th>
                         <th>Tahun Terbit</th>
                         <th>Jenis Buku</th>
-                        <th>Aksi</th>
+                        <?php if(isset($_SESSION['role'])) echo'<th>Aksi</th>' ?>
                     </tr>
                 </thead>
                 <tbody>
@@ -46,9 +52,13 @@ if (isset($_GET['id'])) {
                             <td><?php echo $data["pengarang"] ?></td>
                             <td><?php echo $data["tahun"] ?></td>
                             <td><?php echo $data["jenis"] ?></td>
-                            <td><a href="edit.php?id=<?php echo htmlspecialchars($data["id"]) ?>" class="btn btn-warning" id="btnedit">Edit</a>
-                                <a href="<?php $_SERVER["PHP_SELF"] ?>?id=<?php echo $data["id"] ?>" class="btn btn-danger" id="btnhapus">Hapus</a>
-                            </td>
+                            <?php if($_SESSION['role']=='admin') echo'<td><a href="edit.php?id='.htmlspecialchars($data["id"]).'" class="btn btn-warning" id="btnedit">Edit</a>
+                                <a href="'.$_SERVER["PHP_SELF"].'?id='.$data["id"].'" class="btn btn-danger confirmAlert" id="btnhapus">Hapus</a>
+                                </td>';
+                            else if(isset($_SESSION['role'])){
+                                $buku = $data['id'];
+                                echo '<td><a href="buku-booking.php?id='.$buku.'" class="btn btn-primary" id="btnbook">Pinjam</a></div>';
+                            }?>
 
                         </tr>
                     <?php

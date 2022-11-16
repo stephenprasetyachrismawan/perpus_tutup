@@ -1,7 +1,6 @@
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Datatables -->
     <script src="assets/DataTables/DataTables-1.10.18/js/jquery.dataTables.min.js"></script>
     <script src="assets/DataTables/DataTables-1.10.18/js/dataTables.bootstrap4.min.js"></script>
 
@@ -13,6 +12,8 @@
     <script src="assets/DataTables/Buttons-1.5.6/js/buttons.html5.min.js"></script>
     <script src="assets/DataTables/Buttons-1.5.6/js/buttons.print.min.js"></script>
     <script src="assets/DataTables/Buttons-1.5.6/js/buttons.colVis.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
 
     <script>
         $(document).ready(function() {
@@ -25,12 +26,40 @@
                 lengthMenu:[
                     [5,10,25,50,100,-1],
                     [5,10,25,50,100,"All"]
-                ]
-            } );
+                ],
+                search: {
+                    search: "<?php if (isset($_POST['searchbtn'])) echo $_POST['searchkey']  ?>"
+                }
+            });
         
             table.buttons().container()
                 .appendTo( '#table_wrapper .col-md-5:eq(0)' );
         } );
-    </script>
+
+        if ( window.history.replaceState ) {
+            window.history.replaceState( null, null, window.location.href );
+        }
+        
+        $(".confirmAlert").on("click", function(){
+            var getLink = $(this).attr('href');
+            Swal.fire({
+                title: "Yakin hapus data?",            
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                confirmButtonText: 'Ya',
+                cancelButtonColor: '#3085d6',
+                cancelButtonText: "Batal"
+                
+            }).then(result => {
+                if(result.isConfirmed){
+                    window.location.href = getLink;
+                }
+            });
+            return false;
+        });
+                
+
+</script>
 </body>
 </html>
