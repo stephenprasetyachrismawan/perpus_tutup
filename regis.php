@@ -56,7 +56,7 @@ if (isset($_POST['login'])) {
 
     if (mysqli_affected_rows($koneksi) > 0) {
         echo "<script>
-                swal('User Baru Berhasil Ditambahkan!', '', 'error').then(function(){
+                swal('User Baru Berhasil Ditambahkan!', '', 'success').then(function(){
                     window.location.assign('index.php');
                 })
 			  </script>";
