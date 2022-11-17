@@ -36,7 +36,7 @@ if (isset($_GET['id'])) {
                         <th>Pengarang</th>
                         <th>Tahun Terbit</th>
                         <th>Jenis Buku</th>
-                        <?php if(isset($_SESSION['role'])) echo'<th>Aksi</th>' ?>
+                        <?php if(isset($_SESSION['username'])) echo'<th>Aksi</th>' ?>
                     </tr>
                 </thead>
                 <tbody>
@@ -55,7 +55,7 @@ if (isset($_GET['id'])) {
                             <?php if($_SESSION['role']=='admin') echo'<td><a href="edit.php?id='.htmlspecialchars($data["id"]).'" class="btn btn-warning" id="btnedit">Edit</a>
                                 <a href="'.$_SERVER["PHP_SELF"].'?id='.$data["id"].'" class="btn btn-danger confirmAlert" id="btnhapus">Hapus</a>
                                 </td>';
-                            else if(isset($_SESSION['role'])){
+                            else if(isset($_SESSION['username'])){
                                 $buku = $data['id'];
                                 echo '<td><a href="buku-booking.php?id='.$buku.'" class="btn btn-primary" id="btnbook">Pinjam</a></div>';
                             }?>
