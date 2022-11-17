@@ -33,6 +33,7 @@
                     search: "<?php if (isset($_POST['searchbtn'])) echo $_POST['searchkey']  ?>"
                 }
             });
+            var table2 = $('#riwayat').DataTable();
         
             table.buttons().container()
                 .appendTo( '#table_wrapper .col-md-5:eq(0)' );
