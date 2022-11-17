@@ -159,14 +159,22 @@ include "koneksi.php";
             <!-- Begin Page Content -->
             <div class="container-fluid">
 
+                <?php
+                    $act = "dashboard";
+                    if(isset($_SESSION['act'])){
+                        $act = $_SESSION['act'];
+                    }
+                ?>
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                    <h1 class="h3 mb-0 text-gray-800 text-uppercase"><?php echo $act;?></h1>
                 </div>
 
-                <!-- Content Row -->
-                <div class="row">
-                </div>
+                <?php
+                    switch($act){
+                        case "dashboard" : include "_home.php";
+                    }
+                ?>
             </div>
 
         </div>
