@@ -27,9 +27,8 @@
                         echo $nama;
                         echo '</a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="profile.php">Profile</a>
+                                <a class="dropdown-item" href="profil.php">Profile</a>
                                 <a class="dropdown-item" href="pengaturan.php">Pengaturan</a>
-                                <a class="dropdown-item" href="">Riwayat Pinjam</a>
                                 <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="keluar.php">Logout</a>
                             </div>';

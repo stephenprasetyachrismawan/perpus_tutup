@@ -14,6 +14,8 @@
     <script src="assets/DataTables/Buttons-1.5.6/js/buttons.colVis.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <script src="assets/js/jquery.easing.min.js"></script>
+    <script src="js/sb-admin-2.min.js"></script>
 
     <script>
         $(document).ready(function() {

@@ -18,7 +18,7 @@ include "koneksi.php";
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-solid fa-book-open"></i>
             </div>
-            <div class="sidebar-brand-text mx-3">Halo <br> Pustaka</div>
+            <div class="sidebar-brand-text mx-3">Perpustakaan <br> Tutup</div>
         </a>
 
         <!-- Divider -->
@@ -102,29 +102,6 @@ include "koneksi.php";
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
 
-        <!-- Heading -->
-        <div class="sidebar-heading">
-            Manajemen Pengurus
-        </div>
-
-
-        <!-- Nav Item - Utilities Collapse Menu -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities3" aria-expanded="true" aria-controls="collapseUtilities">
-                <i class="fas fa-fw fa-user-circle"></i>
-                <span>Manajemen Pengurus</span>
-            </a>
-            <div id="collapseUtilities3" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="#">Tambah Petugas</a>
-                    <a class="collapse-item" href="#">Daftar Petugas</a>
-                </div>
-            </div>
-        </li>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider d-none d-md-block">
-
         <!-- Sidebar Toggler (Sidebar) -->
         <div class="text-center d-none d-md-inline">
             <button class="rounded-circle border-0" id="sidebarToggle"></button>
@@ -157,15 +134,10 @@ include "koneksi.php";
                     <li class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION['username'] ?></span>
-                            <img class="img-profile rounded-circle" src="img/" alt="profile">
                         </a>
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="profile.php">
-                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Profil
-                            </a>
-                            <a class="dropdown-item" href="pengaturan.php?id=">
+                            <a class="dropdown-item" href="dashboard.php?act=chpass">
                                 <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Pengaturan
                             </a>
@@ -184,7 +156,18 @@ include "koneksi.php";
             </nav>
             <!-- End of Topbar -->
 
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
 
+                <!-- Page Heading -->
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                </div>
+
+                <!-- Content Row -->
+                <div class="row">
+                </div>
+            </div>
 
         </div>
         <!-- End of Main Content -->
@@ -194,7 +177,7 @@ include "koneksi.php";
             <div class="container my-auto">
                 <div class="copyright text-center my-auto">
                     <span>
-                        <p class="mb-1">Copyright &copy; 2022 | Sistem Informasi Perpustakaan Halo Pustaka</p>
+                        <p class="mb-1">Copyright &copy; 2022 | Sistem Informasi Perpustakaan</p>
                     </span><br>
                 </div>
             </div>
