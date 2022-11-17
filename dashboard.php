@@ -47,8 +47,9 @@ include "koneksi.php";
             </a>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="#">Tambah Anggota</a>
-                    <a class="collapse-item" href="#">Daftar Anggota</a>
+                    <a class="collapse-item" href="?page=tmahasiswa">Tambah Anggota</a>
+                    <a class="collapse-item" href="?page=ttamu">Tambah Tamu</a>
+                    <a class="collapse-item" href="?page=anggota">Daftar Seluruh Anggota</a>
                 </div>
             </div>
         </li>
@@ -70,8 +71,8 @@ include "koneksi.php";
             </a>
             <div id="collapseUtilities1" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="#">Tambah Buku</a>
-                    <a class="collapse-item" href="#">Daftar Buku</a>
+                    <a class="collapse-item" href="?page=tbuku">Tambah Buku</a>
+                    <a class="collapse-item" href="?page=viewbuku">Daftar Buku</a>
                 </div>
             </div>
         </li>
@@ -93,8 +94,8 @@ include "koneksi.php";
             </a>
             <div id="collapseUtilities2" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="#">Pinjam Buku</a>
-                    <a class="collapse-item" href="#">Daftar Peminjaman Buku</a>
+                    <a class="collapse-item" href="?page=pinjam">Pinjam Buku</a>
+                    <a class="collapse-item" href="?page=viewpinjam">Daftar Peminjaman Buku</a>
                 </div>
             </div>
         </li>
@@ -160,21 +161,66 @@ include "koneksi.php";
             <div class="container-fluid">
 
                 <?php
-                    $act = "dashboard";
-                    if(isset($_SESSION['act'])){
-                        $act = $_SESSION['act'];
-                    }
+                $act = "/";
+                $judul = "home";
+
+                if (isset($_GET['page'])) {
+                    $act = $_GET['page'];
+                }
+                ?>
+                <?php
+                switch ($act) {
+                    case "/":
+                        $halaman = "_home.php";
+                        $judul = "Dashboard";
+                        break;
+                    case "dashboard":
+                        $halaman = "_home.php";
+                        $judul = "Dashboard";
+                        break;
+                    case "tmahasiswa":
+                        $halaman = "_home.php";
+                        $judul = "Tambah Mahasiswa";
+                        break;
+                    case "ttamu":
+                        $halaman = "_home.php";
+                        $judul = "Tambah Tamu";
+                        break;
+                    case "anggota":
+                        $halaman = "_anggota.php";
+                        $judul = "Daftar Anggota";
+                        break;
+                    case "tbuku":
+                        $halaman = "_tbuku.php";
+                        $judul = "Tambah Buku";
+                        break;
+                    case "viewbuku":
+                        $halaman = "_viewbuku.php";
+                        $judul = "Lihat Buku";
+                        break;
+                    case "pinjam":
+                        $halaman = "_pinjam.php";
+                        $judul = "Peminjaman Buku";
+                        break;
+                    case "viewpinjam":
+                        $halaman = "_viewpinjam";
+                        $judul = "Daftar Pinjam";
+                        break;
+                    default:
+                        echo '<script>swal("Maaf halaman tidak ada", "", "error").then(function(){
+            window.location.assign("?page=dashboard");
+
+        });
+        </script>';
+                }
                 ?>
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800 text-uppercase"><?php echo $act;?></h1>
-                </div>
+                    <h1 class="h3 mb-0 text-gray-800 text-uppercase"><?php echo $judul; ?></h1>
+                </div><?php
+                        include $halaman;
+                        ?>
 
-                <?php
-                    switch($act){
-                        case "dashboard" : include "_home.php";
-                    }
-                ?>
             </div>
 
         </div>
