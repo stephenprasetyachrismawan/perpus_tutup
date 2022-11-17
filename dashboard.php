@@ -161,7 +161,7 @@ include "koneksi.php";
             <div class="container-fluid">
 
                 <?php
-                $act = "/";
+                $act = "dashboard";
                 $judul = "home";
 
                 if (isset($_GET['page'])) {
@@ -170,7 +170,7 @@ include "koneksi.php";
                 ?>
                 <?php
                 switch ($act) {
-                    case "/":
+                    case "":
                         $halaman = "_home.php";
                         $judul = "Dashboard";
                         break;
@@ -179,11 +179,11 @@ include "koneksi.php";
                         $judul = "Dashboard";
                         break;
                     case "tmahasiswa":
-                        $halaman = "_home.php";
+                        $halaman = "_tmahasiswa.php";
                         $judul = "Tambah Mahasiswa";
                         break;
                     case "ttamu":
-                        $halaman = "_home.php";
+                        $halaman = "_ttamu.php";
                         $judul = "Tambah Tamu";
                         break;
                     case "anggota":
