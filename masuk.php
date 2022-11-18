@@ -34,8 +34,13 @@ if (isset($_COOKIE['id']) && isset($_COOKIE['key'])) {
 }
 
 if (isset($_SESSION["login"])) {
-    header("Location: index.php");
-    exit;
+    if ($_SESSION['role'] == "admin") {
+        header('location: dashboard.php');
+        exit;
+    } else {
+        header('location: index.php');
+        exit;
+    }
 }
 if (isset($_POST['login'])) {
     $tabel_masuk = $_SESSION['role'];
@@ -59,8 +64,13 @@ if (isset($_POST['login'])) {
                 setcookie('key', hash('sha256', $data['username']), time() + 60);
             }
         }
-        header('location: index.php');
-        exit;
+        if ($tabel_masuk == "admin") {
+            header('location: dashboard.php');
+            exit;
+        } else {
+            header('location: index.php');
+            exit;
+        }
     } else {
         echo '<script>
             swal("username/password salah!", "", "error").then(function(){
