@@ -47,7 +47,7 @@ if (isset($_GET['id'])) {
                             <td><?php echo $data["pengarang"] ?></td>
                             <td><?php echo $data["tahun"] ?></td>
                             <td><?php echo $data["jenis"] ?></td>
-                            <?php if ($_SESSION['role'] == 'admin') echo '<td><a href="edit.php?id=' . htmlspecialchars($data["id"]) . '" class="btn btn-warning" id="btnedit">Edit</a>
+                            <?php if ($_SESSION['role'] == 'admin') echo '<td><a href="?page=editbuku&id=' . htmlspecialchars($data["id"]) . '" class="btn btn-warning" id="btnedit">Edit</a>
                                 <a href="' . $_SERVER["PHP_SELF"] . '?id=' . $data["id"] . '" class="btn btn-danger confirmAlert" id="btnhapus">Hapus</a>
                                 </td>';
                             else if (isset($_SESSION['username'])) {

@@ -2,7 +2,7 @@
 $title = "Dashboard";
 $css = "sb-admin-2.min.css";
 session_start();
-if($_SESSION['role']!="admin") header('Location: index.php');
+if ($_SESSION['role'] != "admin") header('Location: index.php');
 include "template/head.php";
 include "koneksi.php";
 ?>
@@ -134,8 +134,8 @@ include "koneksi.php";
 
                     <!-- Nav Item - User Information -->
                     <?php
-                        $sql = mysqli_query($koneksi, "SELECT pic FROM admin WHERE username = '" . $_SESSION['username'] . "'");
-                        $data = mysqli_fetch_array($sql);
+                    $sql = mysqli_query($koneksi, "SELECT pic FROM admin WHERE username = '" . $_SESSION['username'] . "'");
+                    $data = mysqli_fetch_array($sql);
                     ?>
                     <li class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -203,6 +203,10 @@ include "koneksi.php";
                     case "viewbuku":
                         $halaman = "_viewbuku.php";
                         $judul = "Lihat Buku";
+                        break;
+                    case "editbuku":
+                        $halaman = "_editbuku.php";
+                        $judul = "Edit Buku";
                         break;
                     case "pinjam":
                         $halaman = "_pinjam.php";
