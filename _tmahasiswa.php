@@ -1,26 +1,9 @@
 <?php
-session_start();
-
-include "koneksi.php";
-
 if (isset($_SESSION['role'])) {
     if (!$_SESSION['role'] == "admin") {
         header("location: index.php");
     }
 }
-$hal = $_GET['page'];
-if ($hal == "tmahasiswa") {
-    $tabel_masuk = "mahasiswa";
-} else if ($hal == "tamu") {
-    $tabel_masuk = "tamu";
-} else {
-    echo '<script>
-        swal("Jangan bikin error kamu!", "", "error").then(function(){
-            window.location.assign("index.php");
-        });
-        </script>';
-}
-
 
 if (isset($_POST['regis'])) {
     $username = $_POST['username'];
@@ -34,32 +17,28 @@ if (isset($_POST['regis'])) {
     if (password_verify($konpass, $password) == '') {
         echo "<script>
                 swal('Password Tidak Sama!', '', 'error').then(function(){
-                    window.location.assign('regis.php?sebagai=$tabel_masuk');
+                    window.location.assign('dashboard.php?page=tmahasiswa');
                 })
             </script>";
         exit;
     }
-    if ($tabel_masuk == "mahasiswa") {
-        $result = mysqli_query($koneksi, "SELECT nim FROM $tabel_masuk WHERE nim = '$username'");
-    } else {
-        $result = mysqli_query($koneksi, "SELECT username FROM $tabel_masuk WHERE username = '$username'");
-    }
+    $result = mysqli_query($koneksi, "SELECT nim FROM mahasiswa WHERE nim = '$username'");
     if (mysqli_fetch_assoc($result)) {
         echo "<script>
-                swal('Username Sudah Terdaftar!', '', 'error').then(function(){
+                swal('NIM Sudah Terdaftar!', '', 'error').then(function(){
                     window.location.assign('dashboard.php?page=tmahasiswa');
                 })
 		      </script>";
         return false;
     } else {
-        $query = "insert into $tabel_masuk values ('', '$username', '$nama', '$password', '$email', '$nohp', '$alamat')";
+        $query = "insert into mahasiswa values ('', '$username', '$nama', '$password', '$email', '$nohp', '$alamat')";
         $sql = mysqli_query($koneksi, $query);
     }
 
     if (mysqli_affected_rows($koneksi) > 0) {
         echo "<script>
                 swal('User Baru Berhasil Ditambahkan!', '', 'success').then(function(){
-                    window.location.assign('dashboard.php?page=tmahasiswa');
+                    window.location.assign('dashboard.php?page=viewanggota');
                 })
 			  </script>";
     } else {
@@ -72,16 +51,10 @@ if (isset($_POST['regis'])) {
         <div class="card-body">
             <h4 class="text-center">Pendaftaran Anggota Perpustakaan</h4>
             <form action="dashboard.php?page=tmahasiswa" method="post" name="regis" id="regis">
-                <?php
-                if ($tabel_masuk == "mahasiswa") {
-                    echo "<div class='form-field'><label>NIM:</label><input type='text' name='username' id='username' class='form-control' placeholder='Masukan NIM' required /></div>";
-                } else {
-                    echo '<div class="form-field">
-                        <label>Username:</label>
-                        <input type="text" name="username" id="username" class="form-control" placeholder="Masukan Username" required />
-                    </div>';
-                }
-                ?>
+                <div class='form-field'>
+                    <label>NIM:</label>
+                    <input type='text' name='username' id='username' class='form-control' placeholder='Masukan NIM' required />
+                </div>
                 <div class="form-group">
                     <label>Nama:</label>
                     <input type="text" name="nama" id="nama" class="form-control" placeholder="Masukan Nama" required />
@@ -117,7 +90,3 @@ if (isset($_POST['regis'])) {
         </div>
     </div>
 </div>
-
-<?php
-include "template/foot.php";
-?>

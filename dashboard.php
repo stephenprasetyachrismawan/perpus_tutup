@@ -50,7 +50,7 @@ include "koneksi.php";
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="?page=tmahasiswa">Tambah Anggota</a>
                     <a class="collapse-item" href="?page=ttamu">Tambah Tamu</a>
-                    <a class="collapse-item" href="?page=anggota">Daftar Seluruh Anggota</a>
+                    <a class="collapse-item" href="?page=viewanggota">Daftar Seluruh Anggota</a>
                 </div>
             </div>
         </li>
@@ -192,9 +192,13 @@ include "koneksi.php";
                         $halaman = "_ttamu.php";
                         $judul = "Tambah Tamu";
                         break;
-                    case "anggota":
-                        $halaman = "_anggota.php";
+                    case "viewanggota":
+                        $halaman = "_viewanggota.php";
                         $judul = "Daftar Anggota";
+                        break;
+                    case "editanggota":
+                        $halaman = "_editanggota.php";
+                        $judul = "Edit Anggota";
                         break;
                     case "tbuku":
                         $halaman = "_tbuku.php";
