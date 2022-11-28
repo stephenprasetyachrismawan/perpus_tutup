@@ -2,6 +2,7 @@
 $title = "Dashboard";
 $css = "sb-admin-2.min.css";
 session_start();
+if($_SESSION['role']!="admin") header('Location: index.php');
 include "template/head.php";
 include "koneksi.php";
 ?>

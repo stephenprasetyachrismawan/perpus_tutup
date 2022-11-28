@@ -19,12 +19,12 @@ if ($_GET['sebagai'] == "admin") {
             });
             </script>';
 }
-$role = $_SESSION['role'];
 if (isset($_COOKIE['id']) && isset($_COOKIE['key'])) {
+    $role = $_SESSION['role'];
     $id = $_COOKIE['id'];
     $key = $_COOKIE['key'];
 
-    $result = mysqli_query($koneksi, "SELECT username FROM $role WHERE id = $id");
+    $result = mysqli_query($koneksi, "SELECT username FROM $role WHERE id = '$id'");
 
     $row = mysqli_fetch_assoc($result);
 
@@ -33,8 +33,11 @@ if (isset($_COOKIE['id']) && isset($_COOKIE['key'])) {
     }
 }
 
-if (isset($_SESSION["login"])) {
+if (isset($_SESSION["login"]) && $_SESSION['role']!="admin") {
     header("Location: index.php");
+    exit;
+}elseif(isset($_SESSION["login"]) && $_SESSION['role']=="admin"){
+    header("Location: dashboard.php");
     exit;
 }
 if (isset($_POST['login'])) {
@@ -48,22 +51,28 @@ if (isset($_POST['login'])) {
     }
     $sql = mysqli_query($koneksi, $query);
     $data = mysqli_fetch_array($sql);
-    $verif = password_verify($password, $data['password']);
     if (mysqli_num_rows($sql) === 1) {
-        $_SESSION['username'] = $username;
-        $_SESSION['nama'] = $data['nama'];
         if (password_verify($_POST['password'], $data['password'])) {
+            $_SESSION['username'] = $username;
+            $_SESSION['nama'] = $data['nama'];
             $_SESSION["login"] = true;
             if (isset($_POST['remember'])) {
                 setcookie('id', $data['id'], time() + 60);
                 setcookie('key', hash('sha256', $data['username']), time() + 60);
             }
+        }else{
+            echo '<script>
+            swal("password salah!", "", "error").then(function(){
+                window.location.assign("masuk.php?sebagai=' . $tabel_masuk . '");
+            });
+            </script>';
+            exit;
         }
-        header('location: index.php');
+        header('Location: index.php');
         exit;
     } else {
         echo '<script>
-            swal("username/password salah!", "", "error").then(function(){
+            swal("username salah!", "", "error").then(function(){
                 window.location.assign("masuk.php?sebagai=' . $tabel_masuk . '");
             });
             </script>';
