@@ -133,9 +133,14 @@ include "koneksi.php";
                     <div class="topbar-divider d-none d-sm-block"></div>
 
                     <!-- Nav Item - User Information -->
+                    <?php
+                        $sql = mysqli_query($koneksi, "SELECT pic FROM admin WHERE username = '" . $_SESSION['username'] . "'");
+                        $data = mysqli_fetch_array($sql);
+                    ?>
                     <li class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION['username'] ?></span>
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small text-capitalize"><?php echo $_SESSION['username'] ?></span>
+                            <img class="img-profile rounded-circle" src="<?php echo $data['pic'] ?>" alt="profile">
                         </a>
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
