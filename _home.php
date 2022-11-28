@@ -1,6 +1,8 @@
 <?php
 $buku = mysqli_fetch_array(mysqli_query($koneksi, "SELECT COUNT(judul) AS jmlbuku FROM buku"));
-$anggota = mysqli_fetch_array(mysqli_query($koneksi, "SELECT COUNT(nama) AS jmlanggota FROM mahasiswa"));
+$mhs = mysqli_fetch_array(mysqli_query($koneksi, "SELECT COUNT(nim) AS jmlanggota FROM mahasiswa"));
+$tamu = mysqli_fetch_array(mysqli_query($koneksi, "SELECT COUNT(username) AS jmlanggota FROM tamu"));
+$anggota = $mhs['jmlanggota'] + $tamu['jmlanggota'];
 $pinjam = mysqli_fetch_array(mysqli_query($koneksi, "SELECT COUNT(id) AS pinjamprocess FROM peminjaman WHERE MONTH(tanggal_pinjam) = MONTH(current_date())  AND status != 'done'"));
 $balik = mysqli_fetch_array(mysqli_query($koneksi, "SELECT COUNT(id) AS pinjamdone FROM peminjaman WHERE MONTH(tanggal_kembali) = MONTH(current_date())  AND status = 'done'"));
 ?>
@@ -27,13 +29,13 @@ $balik = mysqli_fetch_array(mysqli_query($koneksi, "SELECT COUNT(id) AS pinjamdo
 
   <!-- Earnings (Monthly) Card Example -->
   <div class="col-xl-3 col-md-6 mb-4">
-    <a href="?page=anggota">
+    <a href="?page=viewanggota">
       <div class="card border-left-success shadow h-100 py-2 zoom">
         <div class="card-body">
           <div class="row align-items-center">
             <div class="col mr-2">
               <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Jumlah Anggota</div>
-              <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo number_format($anggota['jmlanggota']); ?></div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo number_format($anggota); ?></div>
             </div>
             <div class="col-auto">
               <i class="fas fa-laugh-wink fa-2x text-gray-300"></i>

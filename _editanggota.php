@@ -3,8 +3,16 @@ if ($_GET['id_mhs']) {
     $_SESSION['id_anggota'] = $_GET['id_mhs'];
     $_SESSION['tabel'] = "mahasiswa";
 } elseif ($_GET['id_tm']) {
-    $_SESSION['id_anggota'] = $_GET['id_mhs'];
+    $_SESSION['id_anggota'] = $_GET['id_tm'];
     $_SESSION['tabel'] = "tamu";
+}
+
+if(isset($_SESSION['id_anggota'])){
+    $id = $_SESSION['id_anggota'];
+    $tabel = $_SESSION['tabel'];
+    if($tabel=='mahasiswa') $sql = "SELECT * FROM $tabel WHERE nim = '$id'";
+    else $sql = "SELECT * FROM $tabel WHERE username='$id'";
+    $data = mysqli_fetch_array(mysqli_query($koneksi, $sql));
 }
 
 if (isset($_POST['editanggota'])) {
@@ -12,7 +20,7 @@ if (isset($_POST['editanggota'])) {
     $konpass = $_POST['konpass'];
     if (!password_verify($konpass, $password)) {
         echo "<script>
-                    swal('Password Tidak Sama!', '', 'error').then(function(){
+                    swal('Password Baru Tidak Sama!', '', 'error').then(function(){
                         window.location.assign('dashboard.php?page=tmahasiswa');
                     })
                 </script>";
@@ -35,13 +43,16 @@ if (isset($_POST['editanggota'])) {
                         })
                       </script>";
             return false;
-        } else {
-            $query = "insert into mahasiswa values ('', '$username', '$nama', '$password', '$email', '$nohp', '$alamat')";
-            $sql = mysqli_query($koneksi, $query);
         }
+    } else {
+        if($tabel=='mahasiswa' && !empty($konpass)) $query = "UPDATE $tabel SET nim = '$username', nama = '$nama', password = '$password', email = '$email', no_hp = '$nohp', alamat = '$alamat' WHERE nim = '$id'";
+        elseif($tabel=='mahasiswa' && empty($konpass)) $query = "UPDATE $tabel SET nim = '$username', nama = '$nama', email = '$email', no_hp = '$nohp', alamat = '$alamat' WHERE nim = '$id'";
+        elseif($tabel=='tamu' && !empty($konpass)) $query = "UPDATE $tabel SET username = '$username', nama = '$nama', password = '$password', email = '$email', no_hp = '$nohp', alamat = '$alamat' WHERE username = '$id'";
+        elseif($tabel=='tamu' && empty($konpass)) $query = "UPDATE $tabel SET username = '$username', nama = '$nama', email = '$email', no_hp = '$nohp', alamat = '$alamat' WHERE username = '$id'";
+        $sql = mysqli_query($koneksi, $query);
     }
 
-    if (mysqli_affected_rows($koneksi) > 0) {
+    if ($sql) {
         echo "<script>
                     swal('Data User Berhasil Diedit!', '', 'success').then(function(){
                         window.location.assign('dashboard.php?page=viewanggota');
@@ -63,32 +74,32 @@ if (isset($_POST['editanggota'])) {
             <form action="dashboard.php?page=editanggota" method="post" name="edit" id="edit">
                 <?php if ($_SESSION['tabel'] == "mahasiswa") echo "<div class='form-field'>
                         <label>NIM:</label>
-                        <input type='text' name='username' id='username' class='form-control' placeholder='Masukan NIM' required />
+                        <input type='text' name='username' id='username' class='form-control' value ='".$data['nim']."' placeholder='Masukan NIM' required />
                     </div>";
                 else echo '<div class="form-field">
                         <label>Username:</label>
-                        <input type="text" name="username" id="username" class="form-control" placeholder="Masukan Username" required />
+                        <input type="text" name="username" id="username" class="form-control" value ="'.$data['username'].'" placeholder="Masukan Username" required />
                     </div>';
                 ?>
                 <div class="form-group">
                     <label>Nama:</label>
-                    <input type="text" name="nama" id="nama" class="form-control" placeholder="Masukan Nama" required />
+                    <input type="text" name="nama" id="nama" class="form-control" value="<?php echo $data['nama'] ?>" placeholder="Masukan Nama" required />
                 </div>
 
 
                 <div class="form-group">
                     <label>Email:</label>
-                    <input type="email" name="email" id="email" class="form-control" placeholder="Masukan Email" required />
+                    <input type="email" name="email" id="email" class="form-control" value="<?php echo $data['email'] ?>" placeholder="Masukan Email" required />
                 </div>
 
                 <div class="form-group">
                     <label>No HP:</label>
-                    <input type="text" name="nohp" id="nohp" class="form-control" placeholder="Masukan No HP" />
+                    <input type="text" name="nohp" id="nohp" class="form-control" value="<?php echo $data['no_hp'] ?>" placeholder="Masukan No HP" />
                 </div>
 
                 <div class="form-group">
                     <label>Alamat:</label>
-                    <textarea name="alamat" id="alamat" cols="30" rows="10" class="form-control" placeholder="Masukan Alamat"></textarea>
+                    <textarea name="alamat" id="alamat" cols="30" rows="10" class="form-control" placeholder="Masukan Alamat"><?php echo $data['alamat'] ?></textarea>
                 </div>
 
                 <div class="form-group">
