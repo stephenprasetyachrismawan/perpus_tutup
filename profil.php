@@ -8,7 +8,22 @@ session_start();
 include "koneksi.php";
 include "template/head.php";
 include "template/nav.php";
+if (isset($_GET['del'])) {
+    $hapus = $_GET['del'];
 
+    $user = $_SESSION['username'];
+    $query  = "DELETE from peminjaman where id_buku = '$hapus' and id_anggota = '$user'";
+    $sql = mysqli_query($koneksi, $query);
+    $query2 = "update  buku set stok = (select stok from buku where id = $hapus)+1 where id = $hapus";
+
+
+    $sql2 =
+        mysqli_query($koneksi, $query2);
+    if ($sql && $sql2) {
+
+        header("location: profil.php");
+    }
+}
 if (isset($_SESSION['username']) && $_SESSION['role'] == 'mahasiswa') {
     $tabel = $_SESSION['role'];
     $user = $_SESSION['username'];
@@ -79,6 +94,7 @@ if (isset($_SESSION['username']) && $_SESSION['role'] == 'mahasiswa') {
                         <th>Tanggal Pinjam</th>
                         <th>Tanggal Kembali</th>
                         <th>Status</th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -91,7 +107,13 @@ if (isset($_SESSION['username']) && $_SESSION['role'] == 'mahasiswa') {
                             <td><?php echo $data["judul"] ?></td>
                             <td><?php echo $data["tanggal_pinjam"] ?></td>
                             <td><?php echo $data["tanggal_kembali"] ?></td>
-                            <td><?php echo $data["status"] ?></td>
+                            <td><?php echo $data["status"];
+                                if ($data['status'] == "book") {
+                                    $buku = $data['id_buku'];
+                                    echo " || " . "<a href='profil.php?del=$buku'><button class='btn btn-danger'>Batal</button><a>";
+                                }
+                                ?> </td>
+
                         </tr>
                     <?php
                     }
