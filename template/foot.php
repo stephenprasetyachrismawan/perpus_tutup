@@ -34,6 +34,7 @@
                 }
             });
             var table2 = $('#riwayat').DataTable();
+            var table3 = $('#anggota').DataTable();
         
             table.buttons().container()
                 .appendTo( '#table_wrapper .col-md-5:eq(0)' );
