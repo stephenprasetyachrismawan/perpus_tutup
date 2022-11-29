@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 29, 2022 at 12:54 PM
+-- Generation Time: Nov 29, 2022 at 01:18 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.7
 
@@ -153,7 +153,8 @@ CREATE TABLE `tamu` (
 
 INSERT INTO `tamu` (`id`, `username`, `nama`, `password`, `email`, `no_hp`, `alamat`) VALUES
 (1, 'irfan', 'irfan', '$2y$10$dh7xjUd6Efo.RX66sKbfceh6HTFUU96sLVWprodwjeGi/8plAFV4C', '', '', ''),
-(2, 'evan', 'Evans', '$2y$10$M6aD1W.p0cEdBcaNh0WETu7K9GqcatppuaqmvXJCDX4DPUo8gGOta', '', '', '');
+(2, 'evan', 'Evans', '$2y$10$M6aD1W.p0cEdBcaNh0WETu7K9GqcatppuaqmvXJCDX4DPUo8gGOta', '', '', ''),
+(3, 'priyana', 'priyana123', '$2y$10$cHdpdrTDn7h6FeF9Bg2dYeoJduTEPriRPP2lpYnOs3TyLGYPkJNk.', '', '', '');
 
 --
 -- Indexes for dumped tables
@@ -239,7 +240,7 @@ ALTER TABLE `peminjaman`
 -- AUTO_INCREMENT for table `tamu`
 --
 ALTER TABLE `tamu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
