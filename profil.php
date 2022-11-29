@@ -8,11 +8,15 @@ session_start();
 include "koneksi.php";
 include "template/head.php";
 include "template/nav.php";
+
+$username = $_SESSION['username'];
+$role = $_SESSION['role'];
 if (isset($_GET['del'])) {
     $hapus = $_GET['del'];
 
-    $user = $_SESSION['username'];
-    $query  = "DELETE from peminjaman where id_buku = '$hapus' and id_anggota = '$user'";
+
+
+    $query  = "DELETE from peminjaman where id_buku = '$hapus' and id_anggota = '$username'";
     $sql = mysqli_query($koneksi, $query);
     $query2 = "update  buku set stok = (select stok from buku where id = $hapus)+1 where id = $hapus";
 
@@ -24,27 +28,51 @@ if (isset($_GET['del'])) {
         header("location: profil.php");
     }
 }
-if (isset($_SESSION['username']) && $_SESSION['role'] == 'mahasiswa') {
-    $tabel = $_SESSION['role'];
-    $user = $_SESSION['username'];
-    $sql = mysqli_query($koneksi, "SELECT * FROM $tabel WHERE nim = '$user'");
+if (isset($_SESSION['username']) && ($_SESSION['role'] == 'mahasiswa' || $_SESSION['role'] == 'tamu')) {
+    $tabel = $role;
+
+    if ($tabel == "mahasiswa") {
+        $sql = mysqli_query($koneksi, "SELECT * FROM $tabel WHERE nim = '$username'");
+    } else if ($tabel == "tamu") {
+        $query = "SELECT * FROM $tabel WHERE username = '$username'";
+        $sql = mysqli_query($koneksi, $query);
+    }
+
+
     $data = mysqli_fetch_array($sql);
 }
+
+
+
 ?>
 <div class="container">
     <div class="col-md-12">
         <div class="card mb-3" style="margin-top: 100px;">
             <div class="card-body">
                 <h4 class="text-center">Data Profile</h4>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <h6 class="mb-0">NIM</h6>
+
+                <?php if ($tabel == "mahasiswa") { ?>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">NIM</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            <?php echo $data['nim'] ?>
+                        </div>
                     </div>
-                    <div class="col-sm-9 text-secondary">
-                        <?php echo $data['nim'] ?>
+                    <hr>
+                <?php } ?>
+                <?php if ($tabel == "tamu") { ?>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Username</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            <?php echo $data['username'] ?>
+                        </div>
                     </div>
-                </div>
-                <hr>
+                    <hr>
+                <?php } ?>
                 <div class="row">
                     <div class="col-sm-3">
                         <h6 class="mb-0">Nama</h6>
@@ -99,7 +127,7 @@ if (isset($_SESSION['username']) && $_SESSION['role'] == 'mahasiswa') {
                 </thead>
                 <tbody>
                     <?php
-                    $sql = "SELECT * FROM peminjaman JOIN buku ON peminjaman.id_buku = buku.id WHERE id_anggota = '$user'";
+                    $sql = "SELECT * FROM peminjaman JOIN buku ON peminjaman.id_buku = buku.id WHERE id_anggota = '$username'";
                     $hasil = mysqli_query($koneksi, $sql);
                     while ($data = mysqli_fetch_array($hasil)) {
                     ?>
