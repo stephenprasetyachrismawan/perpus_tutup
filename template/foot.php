@@ -20,15 +20,14 @@
 
     <script>
         $(document).ready(function() {
-            var table = $('#table').DataTable( {
-                buttons: [ 'copy','csv','print', 'excel', 'pdf', 'colvis' ],
-                dom: 
-                "<'row'<'col-md-3'l><'col-md-5'B><'col-md-4'f>>" +
-                "<'row'<'col-md-12'tr>>" +
-                "<'row'<'col-md-5'i><'col-md-7'p>>",
-                lengthMenu:[
-                    [5,10,25,50,100,-1],
-                    [5,10,25,50,100,"All"]
+            var table = $('#table').DataTable({
+                buttons: ['copy', 'csv', 'print', 'excel', 'pdf', 'colvis'],
+                dom: "<'row'<'col-md-3'l><'col-md-5'B><'col-md-4'f>>" +
+                    "<'row'<'col-md-12'tr>>" +
+                    "<'row'<'col-md-5'i><'col-md-7'p>>",
+                lengthMenu: [
+                    [5, 10, 25, 50, 100, -1],
+                    [5, 10, 25, 50, 100, "All"]
                 ],
                 search: {
                     search: "<?php if (isset($_POST['searchbtn'])) echo $_POST['searchkey']  ?>"
@@ -37,32 +36,32 @@
             var table2 = $('#riwayat').DataTable();
             var table3 = $('#anggota').DataTable();
             var table4 = $('#pinjam').DataTable();
-        
+
             table.buttons().container()
-                .appendTo( '#table_wrapper .col-md-5:eq(0)' );
+                .appendTo('#table_wrapper .col-md-5:eq(0)');
 
             var $select = $('select').selectize({
                 sortField: 'text'
             });
-        } );
+        });
 
-        if ( window.history.replaceState ) {
-            window.history.replaceState( null, null, window.location.href );
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
         }
-        
-        $(".confirmAlert").on("click", function(){
+
+        $(".confirmAlert").on("click", function() {
             var getLink = $(this).attr('href');
             Swal.fire({
-                title: "Yakin hapus data?",            
+                title: "Yakin hapus data?",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#d33',
                 confirmButtonText: 'Ya',
                 cancelButtonColor: '#3085d6',
                 cancelButtonText: "Batal"
-                
+
             }).then(result => {
-                if(result.isConfirmed){
+                if (result.isConfirmed) {
                     window.location.href = getLink;
                 }
             });
@@ -73,24 +72,24 @@
             var file = document.getElementById('pic');
             var filePath = file.value;
             var [pic] = file.files;
-         
-            var ekstensi =/(\.jpg|\.jpeg|\.png)$/i;
-             
+
+            var ekstensi = /(\.jpg|\.jpeg|\.png)$/i;
+
             if (!ekstensi.exec(filePath)) {
-                Swal.fire('Masukan file gambar','','error');
+                Swal.fire('Masukan file gambar', '', 'error');
                 file.value = '';
-                document.getElementById('display').hidden=true;
+                document.getElementById('display').hidden = true;
                 document.getElementById('display').src = "";
                 return false;
             }
             var src = document.getElementById('display').src;
-            if(pic){
+            if (pic) {
                 document.getElementById('display').src = URL.createObjectURL(pic);
-                document.getElementById('display').hidden=false;
+                document.getElementById('display').hidden = false;
             }
         }
-                
+        $.fn.dataTable.ext.errMode = 'none';
+    </script>
+    </body>
 
-</script>
-</body>
-</html>
+    </html>
