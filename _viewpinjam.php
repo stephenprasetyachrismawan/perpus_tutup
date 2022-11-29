@@ -15,12 +15,19 @@ if (isset($_POST['tambahpeminjaman'])) {
                 swal('Data Peminjaman Gagal Ditambahkan!', '', 'error');
                 </script>";
 }
-
 if (isset($_GET['id_del'])) {
-    $id = htmlspecialchars($_GET["id_del"]);
-    $sql = "DELETE FROM peminjaman WHERE id='$id'";
-    $hasil = mysqli_query($koneksi, $sql);
-    if ($hasil) {
+    $hapus = $_GET['id_del'];
+
+
+    $query2 = "update  buku set stok = (select stok from buku where id = (select id_buku from peminjaman where id = '$hapus'))+1 where id = (select id_buku from peminjaman where id = '$hapus')";
+
+
+    $sql2 =
+        mysqli_query($koneksi, $query2);
+    $query  = "DELETE from peminjaman where id= '$hapus'";
+    $sql = mysqli_query($koneksi, $query);
+
+    if ($sql && $sql2) {
         echo "<script>swal('Data Berhasil Dihapus', '', 'success').then(function(){
             window.location.assign('?page=viewpinjam');
         });</script>";
@@ -81,7 +88,14 @@ if (isset($_GET['id_acc'])) {
                         <tr>
                             <td><?php echo $data["id"] ?></td>
                             <td><?php echo $data["id_buku"] ?></td>
+
+
+
                             <td><?php echo $data["id_anggota"] ?></td>
+                            <?php
+                            $id_buku = $data["id_buku"];
+                            $id_anggota = $data["id_anggota"];
+                            ?>
                             <td><?php echo $data["tanggal_pinjam"] ?></td>
                             <td><?php echo $data["tanggal_kembali"] ?></td>
                             <td><?php echo $data["denda"] ?></td>
