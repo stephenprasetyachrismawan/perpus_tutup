@@ -33,15 +33,17 @@ if (isset($_GET['id_del'])) {
 
 if (isset($_GET['id_acc'])) {
     $id = htmlspecialchars($_GET["id_acc"]);
-    $sql = "UPDATE peminjaman SET tanggal_pinjam = CURRENT_DATE, status = 'process' WHERE id_peminjaman='$id'";
+    $waktusekarang = date("Y-m-d h:i:sa");
+    $sql = "UPDATE peminjaman SET tanggal_pinjam = '$waktusekarang', status = 'process' WHERE id='$id'";
+    var_dump($sql);
     $hasil = mysqli_query($koneksi, $sql);
     if ($hasil) {
         echo "<script>swal('Peminjaman Berhasil Dikonfirmasi', '', 'success').then(function(){
-            window.location.assign('?page=viewpeminjaman');
+            window.location.assign('?page=viewpinjam');
         });</script>";
     } else {
         echo "<script>swal('Peminjaman Gagal Dikonfirmasi', '', 'error').then(function(){
-            window.location.assign('?page=viewpeminjaman');
+            window.location.assign('?page=viewpinjam');
         });</script>";
     }
 }
@@ -86,9 +88,9 @@ if (isset($_GET['id_acc'])) {
                             <td class="badge <?php if ($data['status'] == 'done') echo "badge-success";
                                                 elseif ($data['status'] == 'process') echo "badge-primary";
                                                 else echo "badge-warning" ?> text-uppercase"><?php echo $data['status'] ?></td>
-                            <td><a href="#" data-toggle="modal" data-target="#detailModal" data-id="<?php echo $data['id_peminjaman'] ?>" class="btn btn-primary btndetailpeminjaman"><i class="fas fa-circle-info"></i></a>
-                                <?php if ($data['status'] == 'book') echo '<a href="?page=viewpinjam&id_acc=' . $data['id_peminjaman'] . '" class="btn btn-success confirmAcc" id="btnacc"><i class="fas fa-check"></i></a>';
-                                else echo '<a href="#" class="btn btn-warning btneditpeminjaman" data-toggle="modal" data-target="#editPeminjaman" data-id="' . $data["id_peminjaman"] . '"><i class="fas fa-pen-to-square"></i></a>' ?>
+                            <td><a href="#" data-toggle="modal" data-target="#detailModal" data-id="<?php echo $data['id'] ?>" class="btn btn-primary btndetailpeminjaman"><i class="fas fa-circle-info"></i></a>
+                                <?php if ($data['status'] == 'book') echo '<a href="?page=viewpinjam&id_acc=' . $data['id'] . '" class="btn btn-success confirmAcc" id="btnacc"><i class="fas fa-check"></i></a>';
+                                else echo '<a href="#" class="btn btn-warning btneditpeminjaman" data-toggle="modal" data-target="#editPeminjaman" data-id="' . $data["id"] . '"><i class="fas fa-pen-to-square"></i></a>' ?>
                                 <a href="?page=viewpinjam&id_del=<?php echo $data['id'] ?>" class="btn btn-danger confirmAlert" id="btnhapus"><i class="fas fa-trash"></i></a>
                             </td>
                         </tr>
