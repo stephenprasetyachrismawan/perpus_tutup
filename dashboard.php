@@ -95,7 +95,6 @@ include "koneksi.php";
             </a>
             <div id="collapseUtilities2" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="?page=pinjam">Booking Buku</a>
                     <a class="collapse-item" href="?page=viewpinjam">Daftar Peminjaman Buku</a>
                 </div>
             </div>
@@ -216,12 +215,8 @@ include "koneksi.php";
                         $halaman = "_editbuku.php";
                         $judul = "Edit Buku";
                         break;
-                    case "pinjam":
-                        $halaman = "_pinjam.php";
-                        $judul = "Peminjaman Buku";
-                        break;
                     case "viewpinjam":
-                        $halaman = "_viewpinjam";
+                        $halaman = "_viewpinjam.php";
                         $judul = "Daftar Pinjam";
                         break;
                     default:

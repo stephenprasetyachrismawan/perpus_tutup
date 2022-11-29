@@ -16,6 +16,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
     <script src="assets/js/jquery.easing.min.js"></script>
     <script src="js/sb-admin-2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
 
     <script>
         $(document).ready(function() {
@@ -35,9 +36,14 @@
             });
             var table2 = $('#riwayat').DataTable();
             var table3 = $('#anggota').DataTable();
+            var table4 = $('#pinjam').DataTable();
         
             table.buttons().container()
                 .appendTo( '#table_wrapper .col-md-5:eq(0)' );
+
+            var $select = $('select').selectize({
+                sortField: 'text'
+            });
         } );
 
         if ( window.history.replaceState ) {
