@@ -14,6 +14,7 @@
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
                         <?php
                         $nama = $_SESSION['nama'];
+
                         if (!isset($_SESSION['username'])) {
                             echo 'Masuk
                             </a>

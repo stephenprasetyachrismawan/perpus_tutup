@@ -95,7 +95,7 @@ include "koneksi.php";
             </a>
             <div id="collapseUtilities2" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="?page=pinjam">Pinjam Buku</a>
+                    <a class="collapse-item" href="?page=pinjam">Booking Buku</a>
                     <a class="collapse-item" href="?page=viewpinjam">Daftar Peminjaman Buku</a>
                 </div>
             </div>

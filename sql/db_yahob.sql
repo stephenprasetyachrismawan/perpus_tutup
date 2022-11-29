@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 28, 2022 at 09:06 AM
--- Server version: 10.4.25-MariaDB
--- PHP Version: 8.1.10
+-- Generation Time: Nov 29, 2022 at 01:18 PM
+-- Server version: 10.4.19-MariaDB
+-- PHP Version: 8.0.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -62,8 +62,8 @@ CREATE TABLE `buku` (
 --
 
 INSERT INTO `buku` (`id`, `judul`, `pengarang`, `tahun`, `id_jenis`, `stok`) VALUES
-(17, 'Just Code', 'Prijatno', 1998, 1, 0),
-(34, 'Membuat berbagai DVD-Video dengan Ulead Video Studio 9', 'Ian Chandra K', 2006, 2, 3);
+(17, 'Just Code', 'Prijatno', 1998, 2, 3),
+(34, 'Membuat berbagai DVD-Video dengan Ulead Video Studio 9', 'Ian Chandra K', 2006, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -107,7 +107,7 @@ CREATE TABLE `mahasiswa` (
 INSERT INTO `mahasiswa` (`id`, `nim`, `nama`, `password`, `email`, `no_hp`, `alamat`) VALUES
 (1, 'H1D021025', 'H1D021025', '$2y$10$iz9WtylmQVVffeqta7vKpeoM.4jJCbfvGzwx3YqO5buVP7cdNurrq', '', '', ''),
 (2, 'H1D021111', 'djoko sasana', '$2y$10$UL0th/UvWOeW.bktB57SUeJhY.M9MVi1Pjpsx6GauF2CUsKLO7AE6', '', '', ''),
-(3, 'H1D021043', 'Irfan Priatna', '$2y$10$/9A.Va2kuCUZYXdVnEkP1ONuj3KbELJl27bG9xX.LlKt34j9j1HaC', 'irfan.priatna@mhs.unsoed.ac.id', '0895375115609', 'Jalan In Aja No.333');
+(3, 'H1D021043', 'Irfan Priatna', '$2y$10$Iweyqdxn8nXpiTIierhaneBEDE4i8lTg3BsapjxCeYVs4YNSuxcdm', 'irfan.priatna@mhs.unsoed.ac.id', '0895375115609', 'Jalan In Aja No.333');
 
 -- --------------------------------------------------------
 
@@ -119,8 +119,8 @@ CREATE TABLE `peminjaman` (
   `id` int(11) NOT NULL,
   `id_buku` int(11) NOT NULL,
   `id_anggota` varchar(9) NOT NULL,
-  `tanggal_pinjam` date NOT NULL,
-  `tanggal_kembali` date NOT NULL,
+  `tanggal_pinjam` text NOT NULL,
+  `tanggal_kembali` text NOT NULL,
   `status` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -129,7 +129,7 @@ CREATE TABLE `peminjaman` (
 --
 
 INSERT INTO `peminjaman` (`id`, `id_buku`, `id_anggota`, `tanggal_pinjam`, `tanggal_kembali`, `status`) VALUES
-(1, 17, 'H1D021025', '2022-11-21', '0000-00-00', 'process');
+(44, 34, 'H1D021043', '2022-11-29 03:36:50pm', '', 'book');
 
 -- --------------------------------------------------------
 
@@ -153,7 +153,8 @@ CREATE TABLE `tamu` (
 
 INSERT INTO `tamu` (`id`, `username`, `nama`, `password`, `email`, `no_hp`, `alamat`) VALUES
 (1, 'irfan', 'irfan', '$2y$10$dh7xjUd6Efo.RX66sKbfceh6HTFUU96sLVWprodwjeGi/8plAFV4C', '', '', ''),
-(2, 'evan', 'Evans', '$2y$10$M6aD1W.p0cEdBcaNh0WETu7K9GqcatppuaqmvXJCDX4DPUo8gGOta', '', '', '');
+(2, 'evan', 'Evans', '$2y$10$M6aD1W.p0cEdBcaNh0WETu7K9GqcatppuaqmvXJCDX4DPUo8gGOta', '', '', ''),
+(3, 'priyana', 'priyana123', '$2y$10$cHdpdrTDn7h6FeF9Bg2dYeoJduTEPriRPP2lpYnOs3TyLGYPkJNk.', '', '', '');
 
 --
 -- Indexes for dumped tables
@@ -233,13 +234,13 @@ ALTER TABLE `mahasiswa`
 -- AUTO_INCREMENT for table `peminjaman`
 --
 ALTER TABLE `peminjaman`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `tamu`
 --
 ALTER TABLE `tamu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables

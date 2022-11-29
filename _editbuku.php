@@ -28,7 +28,7 @@ if (isset($_POST['editbuku'])) {
     $stok = $_POST['stok'];
     $kategori = $_POST['kategori'];
 
-    $query = "UPDATE buku SET judul='$judul', pengarang='$pengarang', tahun=$thnterbit, stok=$stok, id_jenis='$kategori' where id = $_SESSION[idjenis] ";
+    $query = "UPDATE buku SET judul='$judul', pengarang='$pengarang', tahun=$thnterbit, stok=$stok, id_jenis='$kategori' where id = $_SESSION[idbuku] ";
 
     $sql = mysqli_query($koneksi, $query);
 
