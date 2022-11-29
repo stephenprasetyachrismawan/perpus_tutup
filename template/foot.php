@@ -62,6 +62,27 @@
             });
             return false;
         });
+
+        function valid() {
+            var file = document.getElementById('pic');
+            var filePath = file.value;
+            var [pic] = file.files;
+         
+            var ekstensi =/(\.jpg|\.jpeg|\.png)$/i;
+             
+            if (!ekstensi.exec(filePath)) {
+                Swal.fire('Masukan file gambar','','error');
+                file.value = '';
+                document.getElementById('display').hidden=true;
+                document.getElementById('display').src = "";
+                return false;
+            }
+            var src = document.getElementById('display').src;
+            if(pic){
+                document.getElementById('display').src = URL.createObjectURL(pic);
+                document.getElementById('display').hidden=false;
+            }
+        }
                 
 
 </script>
