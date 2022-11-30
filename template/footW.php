@@ -1,8 +1,7 @@
     <div class="card border-dark mb-3 w-100">
-        <div class="card-header">Header</div>
-        <div class="card-body text-dark">
-            <h5 class="card-title">Dark card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's contents.</p>
+        <div class="card-header text-center text-dark">Copyright &copy; 2022 | Sistem Informasi Perpustakaan(SIPUSSY)</div>
+        <div class="card-body text-white">
+        |@kelompok 20 |@kelompok 20 |@kelompok 20 |@kelompok 20 |@kelompok 20 |
         </div>
     </div>
 
