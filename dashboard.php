@@ -12,7 +12,7 @@ include "koneksi.php";
 <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <ul class="navbar-nav bg-gradient-secondary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard.php">
@@ -244,7 +244,7 @@ include "koneksi.php";
             <div class="container my-auto">
                 <div class="copyright text-center my-auto">
                     <span>
-                        <p class="mb-1">Copyright &copy; 2022 | Sistem Informasi Perpustakaan</p>
+                        <p class="mb-1">Copyright &copy; 2022 | Sistem Informasi Perpustakaan(SIPUSSY)</p>
                     </span><br>
                 </div>
             </div>

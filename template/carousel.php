@@ -8,22 +8,22 @@
         <div class="carousel-item active ukur">
             <img src="./img/a.jpg" class="d-block w-100" alt="...">
             <div class="carousel-caption d-none d-md-block">
-            <h5>First slide label</h5>
-            <p>Some representative placeholder content for the first slide.</p>
+            <h5>“Books are the quietest and most constant of friends; they are the most accessible and wisest of counselors, and the most patient of teachers.”</h5>
+            <p>Charles William Eliot</p>
             </div>
         </div>
         <div class="carousel-item ukur">
             <img src="./img/b.jpg" class="d-block w-100" alt="...">
             <div class="carousel-caption d-none d-md-block">
-            <h5>Second slide label</h5>
-            <p>Some representative placeholder content for the second slide.</p>
+            <h5>“Books are the legacies that a great genius leaves to mankind, which are delivered down from generation to generation as presents to the posterity of those who are yet unborn.”</h5>
+            <p>Joseph Addison</p>
             </div>
         </div>
         <div class="carousel-item ukur">
             <img src="./img/c.jpg" class="d-block w-100" alt="...">
             <div class="carousel-caption d-none d-md-block">
-            <h5>Third slide label</h5>
-            <p>Some representative placeholder content for the third slide.</p>
+            <h5>“Books are the carriers of civilization. Without books, history is silent, literature dumb, science crippled, thought and speculation at a standstill. They are engines of change, windows on the world, lighthouses erected in the sea of time.”</h5>
+            <p>Barbara W. Tuchman</p>
             </div>
         </div>
         </div>
