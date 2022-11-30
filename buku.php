@@ -16,23 +16,9 @@ if ($_SESSION['login'] && $_GET['book']) {
     $sql2 = mysqli_query($koneksi, $query2);
     if ($sql && $sql2) {
 
-        header("location: buku.php");
+        header("location: profil.php");
     }
 }
-// if (isset($_GET['id'])) {
-//     $id = htmlspecialchars($_GET["id"]);
-//     $sql = "delete from buku where id='$id' ";
-//     $hasil = mysqli_query($koneksi, $sql);
-//     if ($hasil) {
-//         echo "<script>swal('Data Berhasil Dihapus', '', 'success').then(function(){
-//                 window.location.assign('buku.php');
-//             });</script>";
-//     } else {
-//         echo "<script>swal('Data Gagal Dihapus', '', 'error').then(function(){
-//                 window.location.assign('buku.php');
-//             });</script>";
-//     }
-// }
 ?>
 
 <div class="container">
@@ -47,12 +33,12 @@ if ($_SESSION['login'] && $_GET['book']) {
                         <th>Pengarang</th>
                         <th>Tahun Terbit</th>
                         <th>Jenis Buku</th>
+                        <th>Stok</th>
                         <?php if (isset($_SESSION['username'])) echo '<th>Aksi</th>' ?>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                    include("koneksi.php");
                     $sql = "select buku.id, buku.judul, buku.pengarang, buku.tahun, jenis_buku.jenis, buku.stok from buku join jenis_buku on buku.id_jenis = jenis_buku.id";
                     $hasil = mysqli_query($koneksi, $sql);
                     while ($data = mysqli_fetch_array($hasil)) {
@@ -63,15 +49,13 @@ if ($_SESSION['login'] && $_GET['book']) {
                             <td><?php echo $data["pengarang"] ?></td>
                             <td><?php echo $data["tahun"] ?></td>
                             <td><?php echo $data["jenis"] ?></td>
-                            <?php if ($_SESSION['role'] == 'admin') echo '<td><a href="edit.php?id=' . htmlspecialchars($data["id"]) . '" class="btn btn-warning" id="btnedit">Edit</a>
-                                <a href="' . $_SERVER["PHP_SELF"] . '?id=' . $data["id"] . '" class="btn btn-danger confirmAlert" id="btnhapus">Hapus</a>
-                                </td>';
-                            else if (isset($_SESSION['username'])) {
+                            <td><?php echo $data["stok"] ?></td>
+                            <?php if (isset($_SESSION['username'])) {
 
                                 $username = $_SESSION['username'];
                                 $buku = $data['id'];
                                 $stok  = $data['stok'];
-                                $query = "select * from peminjaman where id_anggota = '$username' and id_buku = '$buku'";
+                                $query = "select * from peminjaman where id_anggota = '$username' and id_buku = $buku";
                                 $sql  = mysqli_query($koneksi, $query);
                                 $baris = mysqli_fetch_array($sql);
                                 if ($stok == "0") {
@@ -80,11 +64,10 @@ if ($_SESSION['login'] && $_GET['book']) {
                                     } else {
                                         echo '<td><button  class="btn btn-secondary" id="btnbook" disabled>Stok Habis</button></div>';
                                     }
-                                } else
-                                if ($baris && $stok) {
-                                    echo '<td><button  class="btn btn-secondary" id="btnbook" disabled>Ter-booking</button></div>';
+                                } else if ($baris && $stok) {
+                                    echo '<td><a href="buku.php?book=' . $buku . '" class="btn btn-primary confirmPinjam" data-judul="'.$data['judul'].'" id="btnbook">Booking</a></div>';
                                 } else if (!$baris) {
-                                    echo '<td><a href="buku.php?book=' . $buku . '" class="btn btn-primary" id="btnbook">Booking</a></div>';
+                                    echo '<td><a href="buku.php?book=' . $buku . '" class="btn btn-primary confirmPinjam" data-judul="'.$data['judul'].'" id="btnbook">Booking</a></div>';
                                 }
                             } ?>
 

@@ -68,6 +68,25 @@
             return false;
         });
 
+        $(".confirmPinjam").on("click", function(){
+            var judul = $(this).data('judul');
+            var link = $(this).attr('href');
+            Swal.fire({
+                title: "Apakah anda ingin melakukan permintaan peminjaman terhadap buku \"".concat(judul).concat("\"?"),            
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                confirmButtonText: 'Ya',
+                cancelButtonColor: '#3085d6',
+                cancelButtonText: "Batal",
+            }).then(result => {
+                if(result.isConfirmed){
+                    window.location.href = link;
+                }
+            });
+            return false;
+        });
+
         $(".confirmKembali").on("click", function() {
             var getLink = $(this).attr('href');
             var id = $(this).data('id');

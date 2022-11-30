@@ -7,7 +7,9 @@ if (isset($_POST['tambahpeminjaman'])) {
     $status = "process";
     $query = "INSERT INTO peminjaman(id_buku, id_anggota, tanggal_pinjam, status) VALUES('$id_buku', '$id_anggota', '$tanggal_pinjam', '$status')";
     $sql = mysqli_query($koneksi, $query);
-    if ($sql) {
+    $query2 = "update buku set stok = (select stok from buku where id = $id_buku)-1 where id = $id_buku";
+    $sql2 = mysqli_query($koneksi, $query2);
+    if ($sql && $sql2) {
         echo "<script>
                 swal('Data Peminjaman Berhasil Ditambahkan!', '', 'success')
                 </script>";
@@ -17,17 +19,22 @@ if (isset($_POST['tambahpeminjaman'])) {
 }
 if (isset($_GET['id_del'])) {
     $hapus = $_GET['id_del'];
+    $data = mysqli_fetch_array(mysqli_query($koneksi, "SELECT * FROM peminjaman WHERE id=$hapus"));
+    $id_buku = $data['id_buku'];
 
-
-    $query2 = "update  buku set stok = (select stok from buku where id = (select id_buku from peminjaman where id = '$hapus'))+1 where id = (select id_buku from peminjaman where id = '$hapus')";
-
-
-    $sql2 =
-        mysqli_query($koneksi, $query2);
+    if($data['status']!="done"){
+        $query2 = "update  buku set stok = (select stok from buku where id = $id_buku)+1 where id = $id_buku";
+        $sql2 = mysqli_query($koneksi, $query2);
+    }
     $query  = "DELETE from peminjaman where id= $hapus";
     $sql = mysqli_query($koneksi, $query);
 
-    if ($sql && $sql2) {
+    if ($sql && $sql2 && $data['status']!="done") {
+        echo "<script>swal('Data Berhasil Dihapus', '', 'success').then(function(){
+            window.location.assign('?page=viewpinjam');
+        });</script>";
+        exit;
+    } elseif($sql){
         echo "<script>swal('Data Berhasil Dihapus', '', 'success').then(function(){
             window.location.assign('?page=viewpinjam');
         });</script>";

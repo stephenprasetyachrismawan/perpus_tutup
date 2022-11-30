@@ -13,19 +13,20 @@ $username = $_SESSION['username'];
 $role = $_SESSION['role'];
 if (isset($_GET['del'])) {
     $hapus = $_GET['del'];
-
-
-
-    $query  = "DELETE from peminjaman where id_buku = '$hapus' and id_anggota = '$username'";
+    $data = mysqli_fetch_array(mysqli_query($koneksi, "SELECT id_buku FROM peminjaman WHERE id=$hapus"));
+    $id_buku = $data['id_buku'];
+    $query  = "DELETE from peminjaman where id=$hapus";
     $sql = mysqli_query($koneksi, $query);
-    $query2 = "update  buku set stok = (select stok from buku where id = $hapus)+1 where id = $hapus";
-
-
-    $sql2 =
-        mysqli_query($koneksi, $query2);
+    $query2 = "update  buku set stok = (select stok from buku where id = $id_buku)+1 where id = $id_buku";
+    $sql2 = mysqli_query($koneksi, $query2);
     if ($sql && $sql2) {
-
-        header("location: profil.php");
+        echo "<script>swal('Data Berhasil Dihapus', '', 'success').then(function(){
+            window.location.assign('profil.php');
+        });</script>";
+    } else {
+        echo "<script>swal('Data Gagal Dihapus', '', 'error').then(function(){
+            window.location.assign('profil.php');
+        });</script>";
     }
 }
 if (isset($_SESSION['username']) && ($_SESSION['role'] == 'mahasiswa' || $_SESSION['role'] == 'tamu')) {
@@ -135,10 +136,14 @@ if (isset($_SESSION['username']) && ($_SESSION['role'] == 'mahasiswa' || $_SESSI
                             <td><?php echo $data["judul"] ?></td>
                             <td><?php echo $data["tanggal_pinjam"] ?></td>
                             <td><?php echo $data["tanggal_kembali"] ?></td>
-                            <td><?php echo $data["status"];
+                            <td><span class="badge <?php if ($data['status'] == 'done') echo "badge-success";
+                                                elseif ($data['status'] == 'process') echo "badge-primary";
+                                                else echo "badge-warning" ?> text-uppercase"><?php echo $data['status'] ?></span>
+                                <?php
+                                $data2 = mysqli_fetch_array(mysqli_query($koneksi, "SELECT id FROM peminjaman WHERE id_anggota='$username'"));
                                 if ($data['status'] == "book") {
-                                    $buku = $data['id_buku'];
-                                    echo " || " . "<a href='profil.php?del=$buku'><button class='btn btn-danger'>Batal</button><a>";
+                                    $batal = $data2['id'];
+                                    echo " || " . "<a href='profil.php?del=$batal' class='btn btn-danger confirmAlert'>Batal<a>";
                                 }
                                 ?> </td>
 
