@@ -23,13 +23,20 @@ if (isset($_COOKIE['id']) && isset($_COOKIE['key'])) {
     $role = $_SESSION['role'];
     $id = $_COOKIE['id'];
     $key = $_COOKIE['key'];
+    if ($_GET['sebagai'] == "tamu") {
+        $result = mysqli_query($koneksi, "SELECT username FROM $role WHERE username = '$id'");
+        $row = mysqli_fetch_assoc($result);
 
-    $result = mysqli_query($koneksi, "SELECT username FROM $role WHERE id = '$id'");
+        if ($key === hash('sha256', $row['username'])) {
+            $_SESSION['login'] = true;
+        }
+    } else if ($_GET['sebagai'] == "mahasiswa") {
+        $result = mysqli_query($koneksi, "SELECT nim FROM $role WHERE nim = '$id'");
+        $row = mysqli_fetch_assoc($result);
 
-    $row = mysqli_fetch_assoc($result);
-
-    if ($key === hash('sha256', $row['username'])) {
-        $_SESSION['login'] = true;
+        if ($key === hash('sha256', $row['nim'])) {
+            $_SESSION['login'] = true;
+        }
     }
 }
 
@@ -62,7 +69,7 @@ if (isset($_POST['login'])) {
                 setcookie('id', $data['id'], time() + 60);
                 setcookie('key', hash('sha256', $data['username']), time() + 60);
             }
-        }else{
+        } else {
             echo '<script>
             swal("password salah!", "", "error").then(function(){
                 window.location.assign("masuk.php?sebagai=' . $tabel_masuk . '");
