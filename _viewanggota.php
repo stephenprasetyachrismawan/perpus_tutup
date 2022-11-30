@@ -2,10 +2,13 @@
 
 if (isset($_GET['id_mhs'])) {
     $id = htmlspecialchars($_GET["id_mhs"]);
-    $sql = "delete from mahasiswa where nim='$id'";
-    
+    $sql = "delete from peminjaman where id_anggota='$id'";
+
     $hasil = mysqli_query($koneksi, $sql);
-    if ($hasil) {
+    $sql2 = "delete from mahasiswa where nim='$id'";
+
+    $hasil2 = mysqli_query($koneksi, $sql2);
+    if ($hasil && $hasil2) {
         echo "<script>swal('Data Berhasil Dihapus', '', 'success').then(function(){
                 window.location.assign('?page=viewanggota');
             });</script>";
@@ -18,9 +21,12 @@ if (isset($_GET['id_mhs'])) {
 
 if (isset($_GET['id_tm'])) {
     $id = htmlspecialchars($_GET["id_tm"]);
-    $sql = "delete from tamu where username='$id' ";
+    $sql = "delete from peminjaman where id_anggota='$id'";
+
     $hasil = mysqli_query($koneksi, $sql);
-    if ($hasil) {
+    $sql2 = "delete from tamu where username='$id' ";
+    $hasil2 = mysqli_query($koneksi, $sql2);
+    if ($hasil && $hasil2) {
         echo "<script>swal('Data Berhasil Dihapus', '', 'success').then(function(){
                 window.location.assign('?page=viewanggota');
             });</script>";
@@ -63,27 +69,27 @@ if (isset($_GET['id_tm'])) {
                             <td class="badge badge-primary">Mahasiswa</td>
                             <td><a href="?page=editanggota&id_mhs=<?php echo htmlspecialchars($data["nim"]) ?>" class="btn btn-warning" id="btnedit">Edit</a>
                                 <a href="?page=viewanggota&id_mhs=<?php echo $data["nim"] ?>" class="btn btn-danger confirmAlert" id="btnhapus">Hapus</a>
-                                </td>
+                            </td>
                         </tr>
                     <?php
                     }
                     $sql = "SELECT * FROM tamu";
                     $hasil = mysqli_query($koneksi, $sql);
                     while ($data = mysqli_fetch_array($hasil)) {
-                        ?>
-                            <tr>
-                                <td><?php echo $data["username"] ?></td>
-                                <td><?php echo $data["nama"] ?></td>
-                                <td><?php echo $data["email"] ?></td>
-                                <td><?php echo $data["no_hp"] ?></td>
-                                <td><?php echo $data["alamat"] ?></td>
-                                <td class="badge badge-secondary">Tamu</td>
-                                <td><a href="?page=editanggota&id_tm=<?php echo htmlspecialchars($data["username"]) ?>" class="btn btn-warning" id="btnedit">Edit</a>
-                                    <a href="?page=viewanggota&id_tm=<?php echo $data["username"] ?>" class="btn btn-danger confirmAlert" id="btnhapus">Hapus</a>
-                                    </td>
-                            </tr>
-                        <?php
-                        }
+                    ?>
+                        <tr>
+                            <td><?php echo $data["username"] ?></td>
+                            <td><?php echo $data["nama"] ?></td>
+                            <td><?php echo $data["email"] ?></td>
+                            <td><?php echo $data["no_hp"] ?></td>
+                            <td><?php echo $data["alamat"] ?></td>
+                            <td class="badge badge-secondary">Tamu</td>
+                            <td><a href="?page=editanggota&id_tm=<?php echo htmlspecialchars($data["username"]) ?>" class="btn btn-warning" id="btnedit">Edit</a>
+                                <a href="?page=viewanggota&id_tm=<?php echo $data["username"] ?>" class="btn btn-danger confirmAlert" id="btnhapus">Hapus</a>
+                            </td>
+                        </tr>
+                    <?php
+                    }
                     ?>
                 </tbody>
             </table>

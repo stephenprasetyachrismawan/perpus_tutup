@@ -7,10 +7,10 @@ if ($_GET['id_mhs']) {
     $_SESSION['tabel'] = "tamu";
 }
 
-if(isset($_SESSION['id_anggota'])){
+if (isset($_SESSION['id_anggota'])) {
     $id = $_SESSION['id_anggota'];
     $tabel = $_SESSION['tabel'];
-    if($tabel=='mahasiswa') $sql = "SELECT * FROM $tabel WHERE nim = '$id'";
+    if ($tabel == 'mahasiswa') $sql = "SELECT * FROM $tabel WHERE nim = '$id'";
     else $sql = "SELECT * FROM $tabel WHERE username='$id'";
     $data = mysqli_fetch_array(mysqli_query($koneksi, $sql));
 }
@@ -45,10 +45,10 @@ if (isset($_POST['editanggota'])) {
             return false;
         }
     } else {
-        if($tabel=='mahasiswa' && !empty($konpass)) $query = "UPDATE $tabel SET nim = '$username', nama = '$nama', password = '$password', email = '$email', no_hp = '$nohp', alamat = '$alamat' WHERE nim = '$id'";
-        elseif($tabel=='mahasiswa' && empty($konpass)) $query = "UPDATE $tabel SET nim = '$username', nama = '$nama', email = '$email', no_hp = '$nohp', alamat = '$alamat' WHERE nim = '$id'";
-        elseif($tabel=='tamu' && !empty($konpass)) $query = "UPDATE $tabel SET username = '$username', nama = '$nama', password = '$password', email = '$email', no_hp = '$nohp', alamat = '$alamat' WHERE username = '$id'";
-        elseif($tabel=='tamu' && empty($konpass)) $query = "UPDATE $tabel SET username = '$username', nama = '$nama', email = '$email', no_hp = '$nohp', alamat = '$alamat' WHERE username = '$id'";
+        if ($tabel == 'mahasiswa' && !empty($konpass)) $query = "UPDATE $tabel SET  nama = '$nama', password = '$password', email = '$email', no_hp = '$nohp', alamat = '$alamat' WHERE nim = '$id'";
+        elseif ($tabel == 'mahasiswa' && empty($konpass)) $query = "UPDATE $tabel SET  nama = '$nama', email = '$email', no_hp = '$nohp', alamat = '$alamat' WHERE nim = '$id'";
+        elseif ($tabel == 'tamu' && !empty($konpass)) $query = "UPDATE $tabel SET  nama = '$nama', password = '$password', email = '$email', no_hp = '$nohp', alamat = '$alamat' WHERE username = '$id'";
+        elseif ($tabel == 'tamu' && empty($konpass)) $query = "UPDATE $tabel SET  nama = '$nama', email = '$email', no_hp = '$nohp', alamat = '$alamat' WHERE username = '$id'";
         $sql = mysqli_query($koneksi, $query);
     }
 
@@ -74,11 +74,11 @@ if (isset($_POST['editanggota'])) {
             <form action="dashboard.php?page=editanggota" method="post" name="edit" id="edit">
                 <?php if ($_SESSION['tabel'] == "mahasiswa") echo "<div class='form-field'>
                         <label>NIM:</label>
-                        <input type='text' name='username' id='username' class='form-control' value ='".$data['nim']."' placeholder='Masukan NIM' required />
+                        <input type='text' name='username' id='username' class='form-control' value ='" . $data['nim'] . "' placeholder='Masukan NIM' disabled />
                     </div>";
                 else echo '<div class="form-field">
                         <label>Username:</label>
-                        <input type="text" name="username" id="username" class="form-control" value ="'.$data['username'].'" placeholder="Masukan Username" required />
+                        <input type="text" name="username" id="username" class="form-control" value ="' . $data['username'] . '" placeholder="Masukan Username" disabled />
                     </div>';
                 ?>
                 <div class="form-group">
@@ -103,7 +103,7 @@ if (isset($_POST['editanggota'])) {
                 </div>
 
                 <div class="form-group">
-                    <label>Password:</label>
+                    <label>Password <b><i>(jika ingin diubah)</i></b>:</label>
                     <input type="password" name="password" id="password" class="form-control" placeholder="Masukan Password Baru" />
                 </div>
 

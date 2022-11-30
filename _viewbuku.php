@@ -5,15 +5,18 @@ include "koneksi.php";
 
 if (isset($_GET['id'])) {
     $id = htmlspecialchars($_GET["id"]);
+    $sql2 = "delete from peminjaman where id_buku='$id'";
+
+    $hasil2 = mysqli_query($koneksi, $sql2);
     $sql = "delete from buku where id='$id' ";
     $hasil = mysqli_query($koneksi, $sql);
-    if ($hasil) {
+    if ($hasil && $hasil2) {
         echo "<script>swal('Data Berhasil Dihapus', '', 'success').then(function(){
-                window.location.assign('buku.php');
+                window.location.assign('?page=viewbuku');
             });</script>";
     } else {
         echo "<script>swal('Data Gagal Dihapus', '', 'error').then(function(){
-                window.location.assign('buku.php');
+                window.location.assign('?page=viewbuku');
             });</script>";
     }
 }
@@ -31,13 +34,14 @@ if (isset($_GET['id'])) {
                         <th>Pengarang</th>
                         <th>Tahun Terbit</th>
                         <th>Jenis Buku</th>
+                        <th>Stok</th>
                         <?php if (isset($_SESSION['username'])) echo '<th>Aksi</th>' ?>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
                     include("koneksi.php");
-                    $sql = "select buku.id, buku.judul, buku.pengarang, buku.tahun, jenis_buku.jenis from buku join jenis_buku on buku.id_jenis = jenis_buku.id";
+                    $sql = "select buku.id, buku.judul, buku.pengarang, buku.tahun, jenis_buku.jenis, buku.stok from buku join jenis_buku on buku.id_jenis = jenis_buku.id";
                     $hasil = mysqli_query($koneksi, $sql);
                     while ($data = mysqli_fetch_array($hasil)) {
                     ?>
@@ -47,8 +51,9 @@ if (isset($_GET['id'])) {
                             <td><?php echo $data["pengarang"] ?></td>
                             <td><?php echo $data["tahun"] ?></td>
                             <td><?php echo $data["jenis"] ?></td>
+                            <td><?php echo $data["stok"] ?></td>
                             <?php if ($_SESSION['role'] == 'admin') echo '<td><a href="?page=editbuku&id=' . htmlspecialchars($data["id"]) . '" class="btn btn-warning" id="btnedit">Edit</a>
-                                <a href="' . $_SERVER["PHP_SELF"] . '?id=' . $data["id"] . '" class="btn btn-danger confirmAlert" id="btnhapus">Hapus</a>
+                                <a href="' . $_SERVER["PHP_SELF"] . '?page=viewbuku&id=' . $data["id"] . '" class="btn btn-danger confirmAlert" id="btnhapus">Hapus</a>
                                 </td>';
                             else if (isset($_SESSION['username'])) {
                                 $buku = $data['id'];
