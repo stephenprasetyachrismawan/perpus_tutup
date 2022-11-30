@@ -63,17 +63,29 @@ while ($row = mysqli_fetch_array($sql)) {
 
 
     if ($cektahun > 0) {
+        $query2 = "update  buku set stok = (select stok from buku where id = (select id_buku from peminjaman where id = '$id_book'))+1 where id = (select id_buku from peminjaman where id = '$id_book')";
+        $sql2 =
+            mysqli_query($koneksi, $query2);
         $query  = "DELETE from peminjaman where id = $id_book";
         $sql = mysqli_query($koneksi, $query);
-        if ($sql) {
+
+
+
+        if ($sql && $sql2) {
 
             header("location: $_SERVER[PHP_SELF]");
         }
     } else {
         if ($cekbulan > 0) {
+            $query2 = "update  buku set stok = (select stok from buku where id = (select id_buku from peminjaman where id = '$id_book'))+1 where id = (select id_buku from peminjaman where id = '$id_book')";
+            $sql2 =
+                mysqli_query($koneksi, $query2);
             $query  = "DELETE from peminjaman where id = $id_book";
             $sql = mysqli_query($koneksi, $query);
-            if ($sql) {
+
+
+
+            if ($sql && $sql2) {
 
                 header("location: $_SERVER[PHP_SELF]");
             }
@@ -84,27 +96,44 @@ while ($row = mysqli_fetch_array($sql)) {
                     if ($sjam001 - $sjam00 < 86400) {
                         break;
                     } else {
-
+                        $query2 = "update  buku set stok = (select stok from buku where id = (select id_buku from peminjaman where id = '$id_book'))+1 where id = (select id_buku from peminjaman where id = '$id_book')";
+                        $sql2 =
+                            mysqli_query($koneksi, $query2);
                         $query  = "DELETE from peminjaman where id = $id_book";
                         $sql = mysqli_query($koneksi, $query);
-                        if ($sql) {
+
+
+
+                        if ($sql && $sql2) {
 
                             header("location: $_SERVER[PHP_SELF]");
                         }
                     }
                 } else {
+                    $query2 = "update  buku set stok = (select stok from buku where id = (select id_buku from peminjaman where id = '$id_book'))+1 where id = (select id_buku from peminjaman where id = '$id_book')";
+                    $sql2 =
+                        mysqli_query($koneksi, $query2);
                     $query  = "DELETE from peminjaman where id = $id_book";
                     $sql = mysqli_query($koneksi, $query);
-                    if ($sql) {
+
+
+
+                    if ($sql && $sql2) {
 
                         header("location: $_SERVER[PHP_SELF]");
                     }
                 }
             } else {
                 if ($cekjam == 23 && $cekmenit == 59 && $cekdetik == 59) {
+                    $query2 = "update  buku set stok = (select stok from buku where id = (select id_buku from peminjaman where id = '$id_book'))+1 where id = (select id_buku from peminjaman where id = '$id_book')";
+                    $sql2 =
+                        mysqli_query($koneksi, $query2);
                     $query  = "DELETE from peminjaman where id = $id_book";
                     $sql = mysqli_query($koneksi, $query);
-                    if ($sql) {
+
+
+
+                    if ($sql && $sql2) {
 
                         header("location: $_SERVER[PHP_SELF]");
                     }
