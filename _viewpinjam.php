@@ -24,7 +24,7 @@ if (isset($_GET['id_del'])) {
 
     $sql2 =
         mysqli_query($koneksi, $query2);
-    $query  = "DELETE from peminjaman where id= '$hapus'";
+    $query  = "DELETE from peminjaman where id= $hapus";
     $sql = mysqli_query($koneksi, $query);
 
     if ($sql && $sql2) {
@@ -41,7 +41,7 @@ if (isset($_GET['id_del'])) {
 if (isset($_GET['id_acc'])) {
     $id = htmlspecialchars($_GET["id_acc"]);
     $waktusekarang = date("Y-m-d h:i:sa");
-    $sql = "UPDATE peminjaman SET tanggal_pinjam = '$waktusekarang', status = 'process' WHERE id='$id'";
+    $sql = "UPDATE peminjaman SET tanggal_pinjam = '$waktusekarang', status = 'process' WHERE id=$id";
     var_dump($sql);
     $hasil = mysqli_query($koneksi, $sql);
     if ($hasil) {
@@ -50,6 +50,24 @@ if (isset($_GET['id_acc'])) {
         });</script>";
     } else {
         echo "<script>swal('Peminjaman Gagal Dikonfirmasi', '', 'error').then(function(){
+            window.location.assign('?page=viewpinjam');
+        });</script>";
+    }
+}
+
+if(isset($_GET['id_kem'])){
+    $id = $_GET['id_kem'];
+    $data = mysqli_fetch_array(mysqli_query($koneksi, "SELECT * FROM peminjaman WHERE id=$id"));
+    $id_buku = $data['id_buku'];
+    $kembali = date("Y-m-d h:i:sa");
+    $sql = mysqli_query($koneksi, "UPDATE peminjaman SET tanggal_kembali = '$kembali', status = 'done' WHERE id = $id");
+    $sql2 = mysqli_query($koneksi, "UPDATE  buku SET stok = (SELECT stok FROM buku WHERE id = $id_buku)+1 where id = $id_buku");
+    if ($sql && $sql2) {
+        echo "<script>swal('Pengembalian Berhasil Dikonfirmasi', '', 'success').then(function(){
+            window.location.assign('?page=viewpinjam');
+        });</script>";
+    } else {
+        echo "<script>swal('Pengembalian Gagal Dikonfirmasi', '', 'error').then(function(){
             window.location.assign('?page=viewpinjam');
         });</script>";
     }
@@ -75,9 +93,8 @@ if (isset($_GET['id_acc'])) {
                         <th style="width: 0;">NIM</th>
                         <th>Tanggal Pinjam</th>
                         <th>Tanggal Kembali</th>
-                        <th>Denda</th>
                         <th>Status</th>
-                        <th style="width: 115px;">Aksi</th>
+                        <th style="width: 140px;">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -98,13 +115,14 @@ if (isset($_GET['id_acc'])) {
                             ?>
                             <td><?php echo $data["tanggal_pinjam"] ?></td>
                             <td><?php echo $data["tanggal_kembali"] ?></td>
-                            <td><?php echo $data["denda"] ?></td>
                             <td class="badge <?php if ($data['status'] == 'done') echo "badge-success";
                                                 elseif ($data['status'] == 'process') echo "badge-primary";
                                                 else echo "badge-warning" ?> text-uppercase"><?php echo $data['status'] ?></td>
                             <td>
-                                <?php if ($data['status'] == 'book') echo '<a href="?page=viewpinjam&id_acc=' . $data['id'] . '" class="btn btn-success confirmAcc" id="btnacc"><i class="fas fa-check"></i></a>';
-                                else echo '<a href="#" class="btn btn-warning btneditpeminjaman" data-toggle="modal" data-target="#editPeminjaman" data-id="' . $data["id"] . '"><i class="fas fa-pen-to-square"></i></a>' ?>
+                                <?php
+                                $buku = mysqli_fetch_array(mysqli_query($koneksi, "SELECT judul FROM buku WHERE id=$id_buku"));
+                                if ($data['status'] == 'book') echo '<a href="?page=viewpinjam&id_acc=' . $data['id'] . '" class="btn btn-success confirmAcc" id="btnacc"><i class="fas fa-check"></i></a>';
+                                elseif($data['status'] == 'process') echo '<a href="?page=viewpinjam&id_kem='.$data['id'].'" class="btn btn-success confirmKembali" data-buku="'.$buku['judul'].'" data-id='.$data['id'].'>Kembalikan</a>' ?>
                                 <a href="?page=viewpinjam&id_del=<?php echo $data['id'] ?>" class="btn btn-danger confirmAlert" id="btnhapus"><i class="fas fa-trash"></i></a>
                             </td>
                         </tr>

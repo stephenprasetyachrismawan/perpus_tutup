@@ -68,6 +68,27 @@
             return false;
         });
 
+        $(".confirmKembali").on("click", function() {
+            var getLink = $(this).attr('href');
+            var id = $(this).data('id');
+            var buku = $(this).data('buku');
+            Swal.fire({
+                title: "Yakin Kembalikan Buku ".concat(buku).concat(', dengan ID Peminjaman ').concat(id).concat('?'),
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                confirmButtonText: 'Ya',
+                cancelButtonColor: '#3085d6',
+                cancelButtonText: "Batal"
+
+            }).then(result => {
+                if (result.isConfirmed) {
+                    window.location.href = getLink;
+                }
+            });
+            return false;
+        });
+
         function valid() {
             var file = document.getElementById('pic');
             var filePath = file.value;
