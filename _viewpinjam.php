@@ -22,19 +22,19 @@ if (isset($_GET['id_del'])) {
     $data = mysqli_fetch_array(mysqli_query($koneksi, "SELECT * FROM peminjaman WHERE id=$hapus"));
     $id_buku = $data['id_buku'];
 
-    if($data['status']!="done"){
+    if ($data['status'] != "done") {
         $query2 = "update  buku set stok = (select stok from buku where id = $id_buku)+1 where id = $id_buku";
         $sql2 = mysqli_query($koneksi, $query2);
     }
     $query  = "DELETE from peminjaman where id= $hapus";
     $sql = mysqli_query($koneksi, $query);
 
-    if ($sql && $sql2 && $data['status']!="done") {
+    if ($sql && $sql2 && $data['status'] != "done") {
         echo "<script>swal('Data Berhasil Dihapus', '', 'success').then(function(){
             window.location.assign('?page=viewpinjam');
         });</script>";
         exit;
-    } elseif($sql){
+    } elseif ($sql) {
         echo "<script>swal('Data Berhasil Dihapus', '', 'success').then(function(){
             window.location.assign('?page=viewpinjam');
         });</script>";
@@ -49,7 +49,6 @@ if (isset($_GET['id_acc'])) {
     $id = htmlspecialchars($_GET["id_acc"]);
     $waktusekarang = date("Y-m-d h:i:sa");
     $sql = "UPDATE peminjaman SET tanggal_pinjam = '$waktusekarang', status = 'process' WHERE id=$id";
-    var_dump($sql);
     $hasil = mysqli_query($koneksi, $sql);
     if ($hasil) {
         echo "<script>swal('Peminjaman Berhasil Dikonfirmasi', '', 'success').then(function(){
@@ -62,7 +61,7 @@ if (isset($_GET['id_acc'])) {
     }
 }
 
-if(isset($_GET['id_kem'])){
+if (isset($_GET['id_kem'])) {
     $id = $_GET['id_kem'];
     $data = mysqli_fetch_array(mysqli_query($koneksi, "SELECT * FROM peminjaman WHERE id=$id"));
     $id_buku = $data['id_buku'];
@@ -129,7 +128,7 @@ if(isset($_GET['id_kem'])){
                                 <?php
                                 $buku = mysqli_fetch_array(mysqli_query($koneksi, "SELECT judul FROM buku WHERE id=$id_buku"));
                                 if ($data['status'] == 'book') echo '<a href="?page=viewpinjam&id_acc=' . $data['id'] . '" class="btn btn-success confirmAcc" id="btnacc"><i class="fas fa-check"></i></a>';
-                                elseif($data['status'] == 'process') echo '<a href="?page=viewpinjam&id_kem='.$data['id'].'" class="btn btn-success confirmKembali" data-buku="'.$buku['judul'].'" data-id='.$data['id'].'>Kembalikan</a>' ?>
+                                elseif ($data['status'] == 'process') echo '<a href="?page=viewpinjam&id_kem=' . $data['id'] . '" class="btn btn-success confirmKembali" data-buku="' . $buku['judul'] . '" data-id=' . $data['id'] . '>Kembalikan</a>' ?>
                                 <a href="?page=viewpinjam&id_del=<?php echo $data['id'] ?>" class="btn btn-danger confirmAlert" id="btnhapus"><i class="fas fa-trash"></i></a>
                             </td>
                         </tr>
