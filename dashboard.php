@@ -19,7 +19,7 @@ include "koneksi.php";
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-solid fa-book-open"></i>
             </div>
-            <div class="sidebar-brand-text mx-3">Perpustakaan <br> Tutup</div>
+            <div class="sidebar-brand-text mx-3">SIPUSSI</div>
         </a>
 
         <!-- Divider -->

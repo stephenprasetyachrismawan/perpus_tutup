@@ -55,7 +55,7 @@ if ($_SESSION['login'] && $_GET['book']) {
                                 $username = $_SESSION['username'];
                                 $buku = $data['id'];
                                 $stok  = $data['stok'];
-                                $query = "select * from peminjaman where id_anggota = '$username' and id_buku = $buku";
+                                $query = "select * from peminjaman where id_anggota = '$username' and id_buku = $buku and status ='book'";
                                 $sql  = mysqli_query($koneksi, $query);
                                 $baris = mysqli_fetch_array($sql);
                                 if ($stok == "0") {
@@ -64,10 +64,12 @@ if ($_SESSION['login'] && $_GET['book']) {
                                     } else {
                                         echo '<td><button  class="btn btn-secondary" id="btnbook" disabled>Stok Habis</button></div>';
                                     }
+                                } else if ($baris) {
+                                    echo '<td><button  class="btn btn-secondary" id="btnbook" disabled>Ter-booking</button></div>';
                                 } else if ($baris && $stok) {
-                                    echo '<td><a href="buku.php?book=' . $buku . '" class="btn btn-primary confirmPinjam" data-judul="'.$data['judul'].'" id="btnbook">Booking</a></div>';
+                                    echo '<td><a href="buku.php?book=' . $buku . '" class="btn btn-primary confirmPinjam" data-judul="' . $data['judul'] . '" id="btnbook">Booking</a></div>';
                                 } else if (!$baris) {
-                                    echo '<td><a href="buku.php?book=' . $buku . '" class="btn btn-primary confirmPinjam" data-judul="'.$data['judul'].'" id="btnbook">Booking</a></div>';
+                                    echo '<td><a href="buku.php?book=' . $buku . '" class="btn btn-primary confirmPinjam" data-judul="' . $data['judul'] . '" id="btnbook">Booking</a></div>';
                                 }
                             } ?>
 

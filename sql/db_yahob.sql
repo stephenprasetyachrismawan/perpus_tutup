@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 29, 2022 at 01:18 PM
+-- Generation Time: Dec 02, 2022 at 07:47 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.7
 
@@ -62,8 +62,11 @@ CREATE TABLE `buku` (
 --
 
 INSERT INTO `buku` (`id`, `judul`, `pengarang`, `tahun`, `id_jenis`, `stok`) VALUES
-(17, 'Just Code', 'Prijatno', 1998, 2, 3),
-(34, 'Membuat berbagai DVD-Video dengan Ulead Video Studio 9', 'Ian Chandra K', 2006, 2, 1);
+(36, 'Fast-Track Your PROGRAMMING', 'Rayford M. Waller', 1991, 3, 3),
+(37, 'Java Programming 1', 'Jacob, John', 2017, 5, 2),
+(38, 'Java 2 : Network Programming', 'Setyabudi, Hadi', 2019, 5, 4),
+(39, 'Analisis dan Desain Sistem', 'Kusumo, dkk', 2015, 4, 0),
+(40, 'Brownis Cook-Receipt-Instruction by Robot', 'Sawi, Nugraha', 2018, 6, 3);
 
 -- --------------------------------------------------------
 
@@ -82,7 +85,11 @@ CREATE TABLE `jenis_buku` (
 
 INSERT INTO `jenis_buku` (`id`, `jenis`) VALUES
 (1, 'Novel'),
-(2, 'Non-Fiksi');
+(2, 'Non-Fiksi'),
+(3, 'Umum'),
+(4, 'Sistem Informasi'),
+(5, 'Pemrograman'),
+(6, 'Kecerdasan Buatan');
 
 -- --------------------------------------------------------
 
@@ -105,9 +112,11 @@ CREATE TABLE `mahasiswa` (
 --
 
 INSERT INTO `mahasiswa` (`id`, `nim`, `nama`, `password`, `email`, `no_hp`, `alamat`) VALUES
-(1, 'H1D021025', 'H1D021025', '$2y$10$iz9WtylmQVVffeqta7vKpeoM.4jJCbfvGzwx3YqO5buVP7cdNurrq', '', '', ''),
-(2, 'H1D021111', 'djoko sasana', '$2y$10$UL0th/UvWOeW.bktB57SUeJhY.M9MVi1Pjpsx6GauF2CUsKLO7AE6', '', '', ''),
-(3, 'H1D021043', 'Irfan Priatna', '$2y$10$Iweyqdxn8nXpiTIierhaneBEDE4i8lTg3BsapjxCeYVs4YNSuxcdm', 'irfan.priatna@mhs.unsoed.ac.id', '0895375115609', 'Jalan In Aja No.333');
+(3, 'H1D021043', 'Irfan Priatna', '$2y$10$Iweyqdxn8nXpiTIierhaneBEDE4i8lTg3BsapjxCeYVs4YNSuxcdm', 'irfan.priatna@mhs.unsoed.ac.id', '0895375115609', 'Jalan In Aja No.333'),
+(4, 'H1D0210xx', 'GrahamElías Domeño Moon', '$2y$10$SRFhSQuQzl3OvOpkq6Xc4OKUPIUS..Fzp3kknrR5BGlSOjfjOUICe', 'hvelias21@yopmail.com', '8882119', 'Calle b No. 328'),
+(6, 'H1Z021035', 'Lembah Pratama', '$2y$10$p9b9TZIExwQehuEtldsgQeP/aoZeqfTpWNABOxqs2OvXyAvd2D3AS', 'sharyanti@aryani.tv', '(+62) 725 9021 ', 'Kpg. Sampangan No. 330, Banjar 59900, NTB '),
+(7, 'H1Z021024', 'Ella Lestari', '$2y$10$3o0iJYDcD9IDbMNyoi1TZerfizY6uFTuEuwXid67iAHeu6pi0sa7a', 'blatupono@gmail.co.id', '0999 4387 9485', 'Gg. Halim No. 555, Jambi 58154, SulTra'),
+(8, 'H1Z021021', 'Anggabaya Mangunsong', '$2y$10$dXWKqlcMYJkZqtkB9/5Fo.bgMaGzbnB57jlTtcCZ.4ZRmOCjC0tlK', 'nashiruddin.anastasia@gmail.co.id', '0238 0340 791', 'Jln. Asia Afrika No. 421, Yogyakarta 49343, KalUt');
 
 -- --------------------------------------------------------
 
@@ -129,7 +138,14 @@ CREATE TABLE `peminjaman` (
 --
 
 INSERT INTO `peminjaman` (`id`, `id_buku`, `id_anggota`, `tanggal_pinjam`, `tanggal_kembali`, `status`) VALUES
-(44, 34, 'H1D021043', '2022-11-29 03:36:50pm', '', 'book');
+(67, 39, 'gadasiang', '2022-12-02 01:36:46pm', '', 'process'),
+(68, 37, 'H1D0210xx', '2022-12-02 01:37:03pm', '', 'process'),
+(69, 39, 'H1D0210xx', '2022-12-02 01:37:18pm', '2022-12-02 01:38:25pm', 'done'),
+(70, 38, 'H1Z021021', '2022-12-02 01:37:37pm', '', 'process'),
+(71, 40, 'H1Z021035', '2022-12-02 01:38:11pm', '2022-12-02 01:38:18pm', 'done'),
+(72, 39, 'H1Z021035', '2022-12-02 01:39:36pm', '', 'book'),
+(73, 39, 'gadasiang', '2022-12-02 01:44:41pm', '', 'book'),
+(74, 36, 'maimunari', '2022-12-02 01:45:38pm', '', 'book');
 
 -- --------------------------------------------------------
 
@@ -152,9 +168,11 @@ CREATE TABLE `tamu` (
 --
 
 INSERT INTO `tamu` (`id`, `username`, `nama`, `password`, `email`, `no_hp`, `alamat`) VALUES
-(1, 'irfan', 'irfan', '$2y$10$dh7xjUd6Efo.RX66sKbfceh6HTFUU96sLVWprodwjeGi/8plAFV4C', '', '', ''),
-(2, 'evan', 'Evans', '$2y$10$M6aD1W.p0cEdBcaNh0WETu7K9GqcatppuaqmvXJCDX4DPUo8gGOta', '', '', ''),
-(3, 'priyana', 'priyana123', '$2y$10$cHdpdrTDn7h6FeF9Bg2dYeoJduTEPriRPP2lpYnOs3TyLGYPkJNk.', '', '', '');
+(3, 'priyana', 'priyana123', '$2y$10$cHdpdrTDn7h6FeF9Bg2dYeoJduTEPriRPP2lpYnOs3TyLGYPkJNk.', 'priyana@email.com', '70889074087', 'Jalan alamat'),
+(5, 'gues', 'gues', '$2y$10$bwPXsRebq50ZrK44yY4n2eKvk1lI1ktbrS2CruW1BrYqc0UmUtL5S', 'gues@email.email', '1-089-248', '0480 -- Window street'),
+(6, 'maimunari', 'Maimunah Mayasari', '$2y$10$/HYxBYBOCGb5KDJJjhNbO./dg/tPlA29jlgFLsCPq5tRfHRQHJ2Uu', 'elisa94@hakim.name', '(+62) 536 6993 ', ' Kpg. Juanda No. 436, Tangerang 60252, Lampung'),
+(7, 'gadasiang', 'Gada Sihotang', '$2y$10$4fgTUAXNMVsUrAvc7Wd7merhhK5mQwwTJP2QM8roGzaHEF6u6UeyO', 'aditya46@nainggolan.name', '(+62) 879 2695 ', 'Gg. Antapani Lama No. 110, Tanjung Pinang 82265, SumSel'),
+(8, 'balijan', 'Balijan Gunawan', '$2y$10$3X9/UK7MAXZ/hE7ZBDf34u6NuhHkJ2ec4rF3du39/JYxBYHtmUnuq', 'mustofa.jelita@yahoo.com', '(+62) 830 5615 ', 'Ki. Madiun No. 509, Tidore Kepulauan 82919, Aceh');
 
 --
 -- Indexes for dumped tables
@@ -192,8 +210,7 @@ ALTER TABLE `mahasiswa`
 --
 ALTER TABLE `peminjaman`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_buku` (`id_buku`),
-  ADD KEY `fk_mahasiswa` (`id_anggota`);
+  ADD KEY `fk_buku` (`id_buku`);
 
 --
 -- Indexes for table `tamu`
@@ -216,31 +233,31 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `buku`
 --
 ALTER TABLE `buku`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `jenis_buku`
 --
 ALTER TABLE `jenis_buku`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `mahasiswa`
 --
 ALTER TABLE `mahasiswa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `peminjaman`
 --
 ALTER TABLE `peminjaman`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
 -- AUTO_INCREMENT for table `tamu`
 --
 ALTER TABLE `tamu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables
@@ -256,8 +273,7 @@ ALTER TABLE `buku`
 -- Constraints for table `peminjaman`
 --
 ALTER TABLE `peminjaman`
-  ADD CONSTRAINT `fk_buku` FOREIGN KEY (`id_buku`) REFERENCES `buku` (`id`),
-  ADD CONSTRAINT `fk_mahasiswa` FOREIGN KEY (`id_anggota`) REFERENCES `mahasiswa` (`nim`);
+  ADD CONSTRAINT `fk_buku` FOREIGN KEY (`id_buku`) REFERENCES `buku` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
